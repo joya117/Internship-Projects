@@ -1,0 +1,29 @@
+.top {
+    top: 0;
+}
+.navbar {
+    background-color: black;
+    color: white;
+}
+.navitem {
+    width: 24%;
+}
+.padding {
+    padding: 8px 16px;
+}
+.before_after {
+    box-sizing: inherit;
+}
+.navrow {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+.navblock {
+    display: block;
+    width: 100%;
+}
+div {
+    display: block;
+    unicode-bidi: isolate;
+}

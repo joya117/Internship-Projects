@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            var x = 2;
+            var y = 5;
+            var z = x+y;
+            document.write(z);
+        </script>
+        <br>
+        <script>
+             var x = 15;
+            var y = 10;
+            var z = x-y;
+            document.write(z);
+        </script>
+        <br>
+        <script>
+             var x = 15;
+            var y = 7;
+            var z = x*y;
+            document.write(z);
+        </script>
+        <br>
+        <script>
+             var x = 15;
+            var y = 2;
+            var z = x/y;
+            document.write(z);
+        </script>
+        <br>
+        <script>
+            var data = 20;
+            function x(){
+                document.write(data);
+            }
+            function y(){
+                document.write(data);
+            }
+            x();
+            y();
+        </script>
+        <br>
+        <script>
+             var x = 19;
+            var y = 2;
+            var z = x%y;
+            document.write(z);
+        </script>
+        <br>
+        <script>
+           function play(){
+            document.write("i love to play cricket");
+           }
+        </script>
+        <br>
+        <script>
+            function triple(number){
+                return(number*number*number)
+            }
+            document.write(triple(3));
+        </script>
+        <br>
+        <script>
+            function double(number){
+                 document.write(number*number)
+            }
+        </script>
+    </head>
+    <body>
+        <br>
+        <button type="button" onclick="play()">on click</button>
+        <br><br>
+         <script>
+            function square(number){
+                 document.write(number*number)
+            }
+        </script>
+        <button type="button" onclick="square(4)">on click</button>
+
+
+        <br><br>
+
+        <script>
+            var a = 10;
+            if(a>5){
+                document.write("value of a is greater than 5")
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            var a = 10;
+            if(a/5){
+                document.write("value of a is divisible by 5")
+            }
+            else{
+                document.write("value of a is not divisible by 5")
+            }
+
+        </script>
+
+        <br><br>
+
+        <script>
+            var a = 20;
+            if(a==10){
+                document.write("value of a is 10")
+            }
+            else if(a==15){
+                document.write("value of a is 15")
+            }
+            else if(a==20){
+                document.write("value of a is 20")
+            }
+            else{
+                document.write("a is not equal to 10, 20, 15")
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            for(i=1; i<=7; i++){
+                document.write(i + "<br/>")
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            var a = 20;
+            while(a<=25){
+                document.write(a + "<br/>");
+                a++;
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            var a = 10;
+            do{
+                document.write(a + "<br/>");
+                a++;
+            }
+            while(a<=15)
+
+
+        </script>
+
+        <br><br>
+
+        <script>
+            var p = 2467;
+            if(p==0 && p/2){
+                document.write(p + " is even number")
+            }
+            else{
+                document.write(p + " is odd number")
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            person={name:"Manish" , age:21};{
+                document.write(person.name + " " + person.age);
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            var person1 = new Object();{
+                person1.name = "Ram";
+                person1.age = 22;
+                document.write(person1.name + " " + person1.age);
+            }
+        </script>
+
+
+
+        <br><br>
+
+
+
+        <script>
+            function x(id, name, age){
+                this.id= id;
+                this.name=name;
+                this.age=age;
+            }
+            e = new x(155, "Manish", 22);
+            document.write(e.id + " " + e.name + " " + e.age);
+            
+        </script>
+
+        <br><br>
+        
+        <script>
+            var fruits = ['apple', 'mango', 'banana'];{
+               document.write( fruits); 
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            var fruits = new Array();{
+                fruits[0] = 'Apple';
+                fruits[1] = 'Banana';
+                fruits[2] = 'Mango';
+                document.write(fruits);
+            }
+
+        </script>
+
+
+        <br><br>
+
+        <script>
+            var fruits = new Array("Apple", "Mango", "Litchi");{
+                document.write(fruits);
+            }
+
+        </script>
+
+        <br><br>
+
+        <script>
+            var string = "This is a string"
+            document.write(string);
+        </script>
+
+        <br><br>
+
+        <script>
+            var stringname = new String("Here is the new string")
+            document.write(stringname);
+        </script>
+
+
+        <br><br>
+
+        Current Date And Time: <span id="txt"></span>
+        <script>
+            var today = new Date();
+            document.getElementById('txt').innerHTML=today;
+        </script>
+
+        <br><br>
+
+        <script>
+            var date = new Date();
+            var day = date.getDate();
+            var month = date.getMonth()+1;
+            var year = date.getFullYear();
+            document.write("Date is: " + day + "/" + month + "/" + year);  
+        </script>
+
+
+
+
+        <p id="demo"></p>
+        <script>
+            document.getElementById('demo').innerHTML=Math.sqrt(25);
+        </script>
+
+
+
+        <p id="demo1"></p>
+        <script>
+            var x = 50;
+            var y = 22.5;
+            var z = new Number(55);{
+                document.getElementById('demo1').innerHTML= x + y + z;
+            }
+        </script>
+
+
+        <script>
+            var p = 20;
+            document.write(25>20);
+        </script>
+
+
+        <br><br>
+
+
+        <script>
+            function msg(){
+                alert("hello Joya");
+            }
+        </script>
+        <button type="button" onclick="msg()">Click here</button>
+
+        <br><br>
+
+        <script>
+            function text1(){
+                var x = confirm("are you sure?");
+                if(x == true){
+                    alert("ok");
+                }
+                else{
+                    alert("cancel");
+                }
+            }
+        </script>
+        <button type="button" onclick="text1()">Click here</button>
+
+
+        <br><br>
+
+        <script>
+            function text(){
+                var a = prompt("What is your name?")
+                alert("i am " + a);
+            }
+        </script>
+        <button type="button" onclick="text()">Click here</button>
+
+    </body>
+</html>
