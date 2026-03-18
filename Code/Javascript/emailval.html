@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <script>
+            function validateemail(){
+                var x = document.myform1.email.value;
+                var ata = x.indexOf("@");
+                var dotb = x.lastIndexOf(".");
+                if(ata<1 || dotb<ata+2 || dotb+2>=x.length){
+                    alert("Please enter a valid email address.");
+                    return false;
+                }
+
+            }
+        </script>
+        <form name="myform1" method="post" action="#" onsubmit="return validateemail();">
+            Email: <input type="text" name="email"></br>
+            <input type="submit" value="submit">
+        </form>
+
+
+    </body>
+</html>

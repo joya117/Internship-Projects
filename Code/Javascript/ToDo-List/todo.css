@@ -1,0 +1,32 @@
+body{
+    background-color: rgb(23, 3, 64);
+}
+.container{
+    width: 360px;
+    padding: 33px;
+    text-align: center;
+    background-color: rgb(143, 107, 197);
+    margin: 33%;
+    margin-top: 250px;
+    border-radius: 2px;
+}
+input{
+    width: 260px;
+    height: 42px;
+    color: rgb(24, 22, 22);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 2px;
+    font-size: 22px;
+}
+button{
+    width: 60px;
+    height: 42px;
+    background-color: rgb(211, 135, 14);
+    color: white;
+    cursor: pointer;
+    border: 2px;
+    font-size: 22px;
+    border-radius: 2px;
+}

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <br><br>
+
+        <script>
+            var a = 10;
+            if(a>5){
+                document.write("value of a is greater than 5")
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            var a = 10;
+            if(a/5){
+                document.write("value of a is divisible by 5")
+            }
+            else{
+                document.write("value of a is not divisible by 5")
+            }
+
+        </script>
+
+        <br><br>
+
+        <script>
+            var a = 20;
+            if(a==10){
+                document.write("value of a is 10")
+            }
+            else if(a==15){
+                document.write("value of a is 15")
+            }
+            else if(a==20){
+                document.write("value of a is 20")
+            }
+            else{
+                document.write("a is not equal to 10, 20, 15")
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            for(i=1; i<=7; i++){
+                document.write(i + "<br/>")
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            var a = 20;
+            while(a<=25){
+                document.write(a + "<br/>");
+                a++;
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            var a = 10;
+            do{
+                document.write(a + "<br/>");
+                a++;
+            }
+            while(a<=15)
+
+
+        </script>
+
+        <br><br>
+
+        <script>
+            var p = 2467;
+            if(p==0 && p/2){
+                document.write(p + " is even number")
+            }
+            else{
+                document.write(p + " is odd number")
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            person={name:"Manish" , age:21};{
+                document.write(person.name + " " + person.age);
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            var person1 = new Object();{
+                person1.name = "Ram";
+                person1.age = 22;
+                document.write(person1.name + " " + person1.age);
+            }
+        </script>
+
+
+
+        <br><br>
+
+
+
+        <script>
+            function x(id, name, age){
+                this.id= id;
+                this.name=name;
+                this.age=age;
+            }
+            e = new x(155, "Manish", 22);
+            document.write(e.id + " " + e.name + " " + e.age);
+            
+        </script>
+
+        <br><br>
+        
+        <script>
+            var fruits = ['apple', 'mango', 'banana'];{
+               document.write( fruits); 
+            }
+        </script>
+
+        <br><br>
+
+        <script>
+            var fruits = new Array();{
+                fruits[0] = 'Apple';
+                fruits[1] = 'Banana';
+                fruits[2] = 'Mango';
+                document.write(fruits);
+            }
+
+        </script>
+
+
+        <br><br>
+
+        <script>
+            var fruits = new Array("Apple", "Mango", "Litchi");{
+                document.write(fruits);
+            }
+
+        </script>
+
+        <br><br>
+
+        <script>
+            var string = "This is a string"
+            document.write(string);
+        </script>
+
+        <br><br>
+
+        <script>
+            var stringname = new String("Here is the new string")
+            document.write(stringname);
+        </script>
+
+
+        <br><br>
+
+        Current Date And Time: <span id="txt"></span>
+        <script>
+            var today = new Date();
+            document.getElementById('txt').innerHTML=today;
+        </script>
+
+        <br><br>
+
+        <script>
+            var date = new Date();
+            var day = date.getDate();
+            var month = date.getMonth()+1;
+            var year = date.getFullYear();
+            document.write("Date is: " + day + "/" + month + "/" + year);  
+        </script>
+
+
+
+
+        <p id="demo"></p>
+        <script>
+            document.getElementById('demo').innerHTML=Math.sqrt(25);
+        </script>
+
+
+
+        <p id="demo1"></p>
+        <script>
+            var x = 50;
+            var y = 22.5;
+            var z = new Number(55);{
+                document.getElementById('demo1').innerHTML= x + y + z;
+            }
+        </script>
+
+
+        <script>
+            var p = 20;
+            document.write(25>20);
+        </script>
+
+
+        <br><br>
+
+
+        <script>
+            function msg(){
+                alert("hello Joya");
+            }
+        </script>
+        <button type="button" onclick="msg()">Click here</button>
+
+        <br><br>
+
+        <script>
+            function text1(){
+                var x = confirm("are you sure?");
+                if(x == true){
+                    alert("ok");
+                }
+                else{
+                    alert("cancel");
+                }
+            }
+        </script>
+        <button type="button" onclick="text1()">Click here</button>
+
+
+        <br><br>
+
+        <script>
+            function text(){
+                var a = prompt("What is your name?")
+                alert("i am " + a);
+            }
+        </script>
+        <button type="button" onclick="text()">Click here</button>
+
+
+        <br><br>
+
+        <p id="check"></p>
+        <script>
+            let length = history.length;{
+                document.getElementById('check').innerHTML = history.length;
+            }
+        </script>
+
+        <script>
+            function getcube(){
+                var number = document.getElementById("number").value;
+                alert(number*number*number);
+            }
+        </script>
+        <form>
+            Number:<input type="text" id="number" name="number" />
+            <button type="button" value="cube" onclick="getcube()">Submit</button>
+        </form>
+
+
+
+        <br><br>
+
+
+
+        <script>
+            function totalelements()
+            {
+                var allelements = document.getElementsByName("element");
+                alert("Total Elements: " + allelements.length);
+            }
+        </script>
+        <form>
+            Element1 : <input type="radio" name="element" value="element1">
+            Element2 : <input type="radio" name="element" value="element2"> 
+            <button type="button" onclick="totalelements()" value="Total Elements">Total element</button>
+        </form>
+
+
+        <br><br>
+
+        <script>
+            function joya(){
+                var data = "Name:<br><input type='text' name='name'><br>Message:<br><textarea rows='5' cols='50'></textarea><br><input type='submit' value='Submit'>"; document.getElementById('mylocation').innerHTML=data;
+            }
+        </script>
+        <form name="myForm"></form>
+        <input type="button" value="Joya" onclick="joya()">
+        <div id="mylocation"></div>
+
+
+        <br><br>
+
+        <script>
+           function form(){
+                var name = document.myform.name.value;
+                var password = document.myform.password.value;
+                if (name=="" || name=="null"){
+                    alert("Name please");
+                    return false;
+                }
+                else if (password.length<8){
+                    alert("Password must be at least 8 characters long.");
+                        return false;
+                }
+            }
+        </script>
+        <form name="myform" method="post" action="#" onsubmit="return form()">
+            Name: <input type="text" name="name">
+            Password: <input type="password" name="password">
+            <input type="submit" value="Register">
+        </form>
+
+
+        <br><br>
+
+        <script>
+            var section = 'B';
+            var Output;
+            switch(section){
+                case 'A':
+                    Output = "Section A";
+                    break;
+                case 'B':
+                    Output = "Section B";
+                    break;
+                case 'C':
+                    Output = "Section C";
+                    break;
+                default:
+                    Output = "No section";
+            }
+            document.write(Output);
+        </script>
+
+        <br><br>
+
+
+        <script>
+            class Element{
+                constructor(id,name){
+                    this.id = id;
+                    this.name = name;
+                }
+                detail(){
+                    document.write(this.id+" "+this.name+"<br/>");
+                }
+            }
+            var x = new Element(122, "Manish");
+            var y = new Element(123, "Ram");
+            x.detail();
+            y.detail();
+        </script>
+
+
+        <br><br>
+
+        <script>
+            function clickevent(){
+                document.write("Button is clicked");
+            }
+        </script>
+        <form>
+            <input type="button" onclick="clickevent()" value="Click here"/>
+        </form>
+
+
+        <br><br>
+
+        <script>
+            function mouseoverevent(){
+                alert("My name is Joya");
+            }
+        </script>
+        <p onmouseover="mouseoverevent()">Hover over me!</p>
+
+    </body>
+</html>
