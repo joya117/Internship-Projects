@@ -1,0 +1,216 @@
+/* CampusSync — Calendar Page Styles (uses global.css) */
+
+.calendar-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.calendar-day-header {
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-bg);
+  border-radius: var(--radius-sm);
+}
+
+.calendar-day {
+  min-height: 140px;
+  background: var(--dark-secondary);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  border: 1px solid var(--border);
+  transition: border-color var(--transition-fast);
+}
+.calendar-day:hover {
+  border-color: var(--border-hover);
+}
+
+.day-label {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.class-item {
+  padding: 8px 10px;
+  background: var(--primary-bg);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--primary);
+  margin-bottom: 6px;
+  position: relative;
+  transition: background var(--transition-fast);
+}
+.class-item:hover {
+  background: rgba(255, 39, 112, 0.16);
+}
+.class-item .class-time {
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.class-item .class-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.class-item .class-room {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.delete-class, .remove-class {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 11px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+.class-item:hover .delete-class,
+.class-item:hover .remove-class {
+  opacity: 1;
+}
+.delete-class:hover, .remove-class:hover {
+  color: var(--primary);
+}
+
+.no-classes {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Sidebar */
+.calendar-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebar-class-item {
+  padding: 10px;
+  background: var(--primary-bg);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--primary);
+  margin-bottom: 8px;
+}
+.sidebar-class-item .class-time { font-size: 11px; color: var(--primary); font-weight: 600; }
+.sidebar-class-item .class-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.sidebar-class-item .class-room { font-size: 11px; color: var(--text-muted); }
+
+.timetable-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.timetable-info p { font-size: 13px; color: var(--text-muted); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.active { display: flex; }
+
+.modal-content {
+  width: 90%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+}
+.modal-header h2 i { color: var(--primary); }
+
+.modal-body { padding-top: 0; }
+
+.add-class-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.add-class-form select,
+.add-class-form input {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--dark-secondary);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+.add-class-form select:focus,
+.add-class-form input:focus {
+  border-color: var(--primary);
+}
+.add-class-form input::placeholder { color: var(--text-muted); }
+
+.timetable-preview {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.timetable-preview h4 {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-footer {
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .calendar-layout { grid-template-columns: 1fr; }
+  .calendar-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 768px) {
+  .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+}

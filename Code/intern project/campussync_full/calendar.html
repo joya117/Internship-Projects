@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusSync — Smart Calendar</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="calendar.css" />
+  </head>
+  <body class="theme-student">
+    <!-- Animated background scene -->
+    <div class="dashboard-scene" aria-hidden="true">
+      <div class="orb orb--primary"></div>
+      <div class="orb orb--secondary"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="dashboard-container">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2 class="brand">Campus<span class="sync-text">Sync</span></h2>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="calendar.html" class="nav-item active">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Calendar</span>
+          </a>
+          <a href="attendance.html" class="nav-item">
+            <i class="fa-solid fa-clipboard-user"></i>
+            <span>Attendance</span>
+            <span class="badge badge--success">Streak</span>
+          </a>
+          <a href="workspace.html" class="nav-item" id="notesNav">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>Lecture Notes</span>
+          </a>
+
+          <div class="nav-section-title">Collaborative Rooms</div>
+          <a href="workspace.html" class="nav-item workspace-item">
+            <span class="color-dot" style="background: #a29bfe"></span>
+            <span>DSA Study Group</span>
+            <span class="online-indicator">3 online</span>
+          </a>
+          <a href="workspace.html" class="nav-item workspace-item">
+            <span class="color-dot" style="background: #ff7675"></span>
+            <span>Project Team Alpha</span>
+            <span class="online-indicator">2 online</span>
+          </a>
+          <a href="workspace.html" class="nav-item workspace-item">
+            <span class="color-dot" style="background: #ffeaa7"></span>
+            <span>Exam Prep MATH202</span>
+            <span class="online-indicator">0 online</span>
+          </a>
+
+          <div class="nav-section-title">Support</div>
+          <a href="queries.html" class="nav-item">
+            <i class="fa-solid fa-comments"></i>
+            <span>Queries inbox</span>
+            <span class="badge badge--danger">4</span>
+          </a>
+          <a href="#" class="nav-item" id="profileNav">
+            <i class="fa-solid fa-user-gear"></i>
+            <span>Profile settings</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="user-card">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&fit=crop&q=80" alt="Avatar" class="user-avatar" id="sidebarAvatar" />
+            <div class="user-info">
+              <p class="user-name" id="sidebarName">Joya Sen</p>
+              <p class="user-role" id="sidebarRole">Student</p>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Logout">
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Panel Wrapper -->
+      <main class="main-panel">
+        <!-- Top bar -->
+        <header class="topbar">
+          <div class="topbar-left">
+            <h2 class="page-title"><i class="fa-solid fa-calendar-days"></i> Academic Calendar</h2>
+          </div>
+
+          <div class="topbar-right">
+            <div class="notification-bell">
+              <i class="fa-solid fa-bell"></i>
+              <span class="bell-dot"></span>
+            </div>
+            <div class="topbar-user">
+              <span class="user-chip-name" id="topbarUserName">Joya Sen</span>
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&fit=crop&q=80" alt="Avatar" class="user-chip-avatar" id="topbarAvatar" />
+            </div>
+          </div>
+        </header>
+
+        <!-- Calendar Body -->
+        <div class="content-body">
+          <div class="calendar-layout-grid">
+            
+            <!-- Calendar Grid Card -->
+            <div class="calendar-card glass-panel">
+              <div class="calendar-header-controls">
+                <div class="calendar-month-year">
+                  <h3>May 2026</h3>
+                </div>
+                <div class="calendar-view-tabs">
+                  <button class="tab-btn active">Month</button>
+                  <button class="tab-btn">Week</button>
+                  <button class="tab-btn">Day</button>
+                </div>
+              </div>
+
+              <!-- Month Grid -->
+              <div class="calendar-grid-month" id="calendarMonthGrid">
+                <!-- Days labels -->
+                <div class="day-label">Mon</div>
+                <div class="day-label">Tue</div>
+                <div class="day-label">Wed</div>
+                <div class="day-label">Thu</div>
+                <div class="day-label">Fri</div>
+                <div class="day-label">Sat</div>
+                <div class="day-label">Sun</div>
+
+                <!-- Grid dates will be dynamically generated in calendar.js -->
+              </div>
+            </div>
+
+            <!-- Sidebar Day Agenda -->
+            <div class="agenda-sidebar">
+              
+              <!-- Smart Class Note-taking Panel -->
+              <div class="agenda-card glass-panel note-recorder-panel" id="recorderPanel">
+                <h3><i class="fa-solid fa-microphone-lines"></i> AI Note-Taking Recorder</h3>
+                <p class="recorder-subtitle">Record your ongoing lecture to automatically transcribe & generate structured notes.</p>
+                
+                <div class="recorder-visualizer">
+                  <div class="waveform" id="waveform">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                  </div>
+                  <div class="timer" id="recordingTimer">00:00</div>
+                </div>
+
+                <div class="recorder-actions">
+                  <button class="btn btn-record" id="startRecordingBtn">
+                    <i class="fa-solid fa-play"></i> Start Lecture Class
+                  </button>
+                  <button class="btn btn-stop hidden" id="stopRecordingBtn">
+                    <i class="fa-solid fa-stop"></i> Stop & Generate Notes
+                  </button>
+                </div>
+
+                <!-- Note loading processing logs -->
+                <div class="transcribe-processing hidden" id="transcribeProcessing">
+                  <div class="spinner"></div>
+                  <p id="processingStatus">Whisper transcribing lecture audio...</p>
+                  <span class="progress-subtext">Converting speech data (Whisper API)</span>
+                </div>
+              </div>
+
+              <!-- Dynamic generated AI notes display card -->
+              <div class="agenda-card glass-panel hidden" id="aiGeneratedNotesCard" style="animation: formSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;">
+                <div class="note-card-header">
+                  <h3><i class="fa-solid fa-wand-magic-sparkles"></i> AI Generated Lecture Notes</h3>
+                  <button class="close-notes-btn" id="closeNotesCardBtn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="note-view-body" id="generatedNoteContent">
+                  <!-- Filled via Javascript dynamic mocks -->
+                </div>
+                <div class="note-actions">
+                  <button class="btn btn-small" id="saveNoteToWorkspace"><i class="fa-solid fa-floppy-disk"></i> Save to DSA Workspace</button>
+                </div>
+              </div>
+
+              <!-- Scheduled lectures panel for selected date -->
+              <div class="agenda-card glass-panel" style="margin-top: 20px;">
+                <h3>Lectures Agenda (May 19, 2026)</h3>
+                <div class="agenda-list" id="agendaList">
+                  <div class="agenda-item active">
+                    <span class="time">09:30 AM</span>
+                    <div class="agenda-details">
+                      <h4>Data Structures (CS301)</h4>
+                      <p>Lecture Hall 4 • Prof. Joya Sen</p>
+                      <span class="agenda-badge live">LIVE NOW</span>
+                    </div>
+                  </div>
+                  <div class="agenda-item">
+                    <span class="time">11:30 AM</span>
+                    <div class="agenda-details">
+                      <h4>Discrete Mathematics (MATH202)</h4>
+                      <p>Lab Block B • Dr. A. K. Ray</p>
+                      <span class="agenda-badge upcoming">UPCOMING</span>
+                    </div>
+                  </div>
+                  <div class="agenda-item done">
+                    <span class="time">08:30 AM</span>
+                    <div class="agenda-details">
+                      <h4>Web Engineering (CS302)</h4>
+                      <p>Lab Block C • Dr. Priya</p>
+                      <span class="agenda-badge completed">DONE</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Toast popup -->
+    <div class="toast" id="actionToast">
+      <i class="fa-solid fa-circle-check"></i>
+      <span id="toastMsg">Workspace notes added successfully!</span>
+    </div>
+
+    <script src="calendar.js"></script>
+    <script src="profile-settings.js"></script>
+  </body>
+</html>

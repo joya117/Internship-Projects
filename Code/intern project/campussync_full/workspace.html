@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusSync — Collaborative Room</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="workspace.css" />
+  </head>
+  <body class="theme-student">
+    <!-- Animated background scene -->
+    <div class="dashboard-scene" aria-hidden="true">
+      <div class="orb orb--primary"></div>
+      <div class="orb orb--secondary"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="dashboard-container">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2 class="brand">Campus<span class="sync-text">Sync</span></h2>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="calendar.html" class="nav-item">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Calendar</span>
+          </a>
+          <a href="attendance.html" class="nav-item">
+            <i class="fa-solid fa-clipboard-user"></i>
+            <span>Attendance</span>
+            <span class="badge badge--success">Streak</span>
+          </a>
+          <a href="workspace.html" class="nav-item" id="notesNav">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>Lecture Notes</span>
+          </a>
+
+          <div class="nav-section-title">Collaborative Rooms</div>
+          <a href="workspace.html" class="nav-item workspace-item active">
+            <span class="color-dot" style="background: #a29bfe"></span>
+            <span>DSA Study Group</span>
+            <span class="online-indicator">3 online</span>
+          </a>
+          <a href="workspace.html" class="nav-item workspace-item">
+            <span class="color-dot" style="background: #ff7675"></span>
+            <span>Project Team Alpha</span>
+            <span class="online-indicator">2 online</span>
+          </a>
+          <a href="workspace.html" class="nav-item workspace-item">
+            <span class="color-dot" style="background: #ffeaa7"></span>
+            <span>Exam Prep MATH202</span>
+            <span class="online-indicator">0 online</span>
+          </a>
+
+          <div class="nav-section-title">Support</div>
+          <a href="queries.html" class="nav-item">
+            <i class="fa-solid fa-comments"></i>
+            <span>Queries inbox</span>
+            <span class="badge badge--danger">4</span>
+          </a>
+          <a href="#" class="nav-item" id="profileNav">
+            <i class="fa-solid fa-user-gear"></i>
+            <span>Profile settings</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="user-card">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&fit=crop&q=80" alt="Avatar" class="user-avatar" id="sidebarAvatar" />
+            <div class="user-info">
+              <p class="user-name" id="sidebarName">Joya Sen</p>
+              <p class="user-role" id="sidebarRole">Student</p>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Logout">
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Panel Wrapper -->
+      <main class="main-panel">
+        <!-- Top bar -->
+        <header class="topbar">
+          <div class="topbar-left">
+            <h2 class="page-title"><span class="color-dot" style="background: #a29bfe; display:inline-block; width:12px; height:12px; margin-right:8px;"></span> DSA Study Group</h2>
+          </div>
+
+          <div class="topbar-right">
+            <div class="workspace-active-badge">
+              <i class="fa-solid fa-user-group"></i> <span>3 Members Active Now</span>
+            </div>
+            <div class="topbar-user">
+              <span class="user-chip-name" id="topbarUserName">Joya Sen</span>
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&fit=crop&q=80" alt="Avatar" class="user-chip-avatar" id="topbarAvatar" />
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Workspace split structure -->
+        <div class="workspace-layout-grid">
+          
+          <!-- Left/Middle Section: Shared Notes and Discussion Forum -->
+          <div class="left-working-zone">
+            
+            <!-- Collaborative Shared note tab panel -->
+            <div class="shared-note-editor glass-panel">
+              <div class="editor-header">
+                <div class="editor-title-meta">
+                  <h3><i class="fa-solid fa-file-pen"></i> Collaborative Notes: DFS Traversal</h3>
+                  <span class="sync-status-dot" id="syncStatus"><span class="pulse-green"></span> Saved to cloud (Last sync: 2s ago)</span>
+                </div>
+                <div class="editor-view-toggles">
+                  <button class="toggle-view-btn active" id="btnEditView">Write &amp; Preview</button>
+                  <button class="toggle-view-btn" id="btnFullPreview">Full View</button>
+                </div>
+              </div>
+
+              <!-- Editor split panes -->
+              <div class="editor-split-panes" id="editorPanes">
+                <!-- Text editor -->
+                <div class="editor-textarea-pane">
+                  <textarea id="markdownTextarea" placeholder="Write shared Markdown note here..."># Graph Algorithm Study Notes
+
+## 1. Depth-First Search (DFS)
+DFS is a graph traversal algorithm that explores as far as possible along each branch before backtracking.
+
+### Structural mechanics:
+* Uses a **Stack** data structure (recursive or call-stack).
+* Traverses deep into adjancent lists.
+* Vertex markings avoid loop overflows.
+
+### Time Complexity: 
+`O(V + E)` where `V` is vertices and `E` is edges.</textarea>
+                </div>
+
+                <!-- Markdown output preview -->
+                <div class="editor-preview-pane markdown-render" id="markdownPreview">
+                  <!-- Generated dynamic HTML goes here -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Discussion Chat Forum (SMS-Style Threading) -->
+            <div class="discussion-chat glass-panel" style="margin-top: 24px;">
+              <div class="chat-header">
+                <h3><i class="fa-solid fa-comments"></i> Workspace Discussion Desk</h3>
+              </div>
+
+              <!-- Message bubbles wrapper -->
+              <div class="messages-container" id="chatMessagesBox">
+                
+                <div class="chat-bubble-row other">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&fit=crop&q=80" alt="avatar" class="bubble-avatar" />
+                  <div class="bubble-content-wrapper">
+                    <span class="sender-name">Aarav Sharma</span>
+                    <div class="bubble">
+                      <p>Hey, I added the DFS stack mechanics summary in the shared note. Let me know if that works!</p>
+                    </div>
+                    <span class="bubble-time">10:14 AM</span>
+                  </div>
+                </div>
+
+                <div class="chat-bubble-row other">
+                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&fit=crop&q=80" alt="avatar" class="bubble-avatar" />
+                  <div class="bubble-content-wrapper">
+                    <span class="sender-name">Meera Nair</span>
+                    <div class="bubble">
+                      <p>Looks great Aarav. I will add BFS comparative structures in a new sub-heading shortly.</p>
+                    </div>
+                    <span class="bubble-time">10:28 AM</span>
+                  </div>
+                </div>
+
+                <div class="chat-bubble-row self">
+                  <div class="bubble-content-wrapper">
+                    <span class="sender-name">Joya Sen (You)</span>
+                    <div class="bubble">
+                      <p>Awesome! Let's complete the Graph Midterm prep notes today.</p>
+                    </div>
+                    <span class="bubble-time">10:35 AM</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Send message input form -->
+              <form class="chat-input-row" id="workspaceChatForm">
+                <input type="text" id="chatMessageInput" placeholder="Type a message to study room..." required autocomplete="off" />
+                <button type="submit" class="btn btn-send"><i class="fa-solid fa-paper-plane"></i> Send</button>
+              </form>
+            </div>
+
+          </div>
+
+          <!-- Right Sidebar Zone: Members list & shared files downloads -->
+          <div class="right-sidebar-zone">
+            
+            <!-- Members list -->
+            <div class="agenda-card glass-panel">
+              <h3><i class="fa-solid fa-users"></i> Room Members (3)</h3>
+              <div class="members-stack">
+                <div class="member-row">
+                  <div class="member-avatar-wrapper">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&fit=crop&q=80" alt="avatar" />
+                    <span class="status-indicator online"></span>
+                  </div>
+                  <div class="member-meta">
+                    <h4>Joya Sen</h4>
+                    <p>Student • Host</p>
+                  </div>
+                </div>
+                <div class="member-row">
+                  <div class="member-avatar-wrapper">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&fit=crop&q=80" alt="avatar" />
+                    <span class="status-indicator online"></span>
+                  </div>
+                  <div class="member-meta">
+                    <h4>Aarav Sharma</h4>
+                    <p>Student</p>
+                  </div>
+                </div>
+                <div class="member-row">
+                  <div class="member-avatar-wrapper">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&fit=crop&q=80" alt="avatar" />
+                    <span class="status-indicator away"></span>
+                  </div>
+                  <div class="member-meta">
+                    <h4>Meera Nair</h4>
+                    <p>Student</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Resource files panel -->
+            <div class="agenda-card glass-panel" style="margin-top: 24px;">
+              <h3><i class="fa-solid fa-file-pdf"></i> Study Resources</h3>
+              
+              <div class="shared-files-stack">
+                <div class="file-row-item">
+                  <div class="file-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                  <div class="file-meta">
+                    <h4>syllabus_ds.pdf</h4>
+                    <p>Added by Aarav • 420 KB</p>
+                  </div>
+                  <button class="download-btn-circle" id="mockFileDownload1" title="Download"><i class="fa-solid fa-download"></i></button>
+                </div>
+                
+                <div class="file-row-item">
+                  <div class="file-icon" style="background: rgba(79, 172, 254, 0.15); color: #4facfe;"><i class="fa-solid fa-file-word"></i></div>
+                  <div class="file-meta">
+                    <h4>midterm_key.docx</h4>
+                    <p>Added by Meera • 1.2 MB</p>
+                  </div>
+                  <button class="download-btn-circle" id="mockFileDownload2" title="Download"><i class="fa-solid fa-download"></i></button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="actionToast">
+      <i class="fa-solid fa-circle-check"></i>
+      <span id="toastMsg">File downloaded successfully!</span>
+    </div>
+
+    <script src="workspace.js"></script>
+    <script src="profile-settings.js"></script>
+  </body>
+</html>

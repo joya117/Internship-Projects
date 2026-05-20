@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendar — CampusSync</title>
+    <meta name="description" content="View and manage your weekly class schedule on CampusSync." />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="calendar.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <span class="sidebar-logo"><i class="fa-solid fa-graduation-cap"></i></span>
+          <h1 class="sidebar-brand">Campus<span class="sync">Sync</span></h1>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="sidebar-link"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+          <a href="courses.html" class="sidebar-link"><i class="fa-solid fa-book-open"></i><span>Courses</span></a>
+          <a href="calendar.html" class="sidebar-link active"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
+          <a href="live-classroom.html" class="sidebar-link"><i class="fa-solid fa-pen-to-square"></i><span>Collab Notes</span></a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-card">
+            <div class="user-avatar">J</div>
+            <div><span class="user-name">Joya</span><span class="user-role">Computer Science</span></div>
+          </div>
+          <button class="logout-link" onclick="window.location.href='login.html'"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <h1><i class="fa-solid fa-calendar-days"></i> My Calendar</h1>
+            <p class="header-meta">Weekly class timetable</p>
+          </div>
+          <button class="btn-primary" onclick="openUploadModal()"><i class="fa-solid fa-plus"></i> Add Class</button>
+        </header>
+
+        <div class="calendar-layout">
+          <!-- Calendar Grid -->
+          <div class="calendar-main card">
+            <div class="calendar-grid">
+              <div class="calendar-day-header">Mon</div>
+              <div class="calendar-day-header">Tue</div>
+              <div class="calendar-day-header">Wed</div>
+              <div class="calendar-day-header">Thu</div>
+              <div class="calendar-day-header">Fri</div>
+              <div class="calendar-day-header">Sat</div>
+              <div class="calendar-day-header">Sun</div>
+              <div class="calendar-day" id="mon"><span class="day-label">Monday</span><div class="day-classes" id="classes-mon"><p class="no-classes">No classes</p></div></div>
+              <div class="calendar-day" id="tue"><span class="day-label">Tuesday</span><div class="day-classes" id="classes-tue"><p class="no-classes">No classes</p></div></div>
+              <div class="calendar-day" id="wed"><span class="day-label">Wednesday</span><div class="day-classes" id="classes-wed"><p class="no-classes">No classes</p></div></div>
+              <div class="calendar-day" id="thu"><span class="day-label">Thursday</span><div class="day-classes" id="classes-thu"><p class="no-classes">No classes</p></div></div>
+              <div class="calendar-day" id="fri"><span class="day-label">Friday</span><div class="day-classes" id="classes-fri"><p class="no-classes">No classes</p></div></div>
+              <div class="calendar-day" id="sat"><span class="day-label">Saturday</span><div class="day-classes" id="classes-sat"><p class="no-classes">No classes</p></div></div>
+              <div class="calendar-day" id="sun"><span class="day-label">Sunday</span><div class="day-classes" id="classes-sun"><p class="no-classes">No classes</p></div></div>
+            </div>
+          </div>
+
+          <!-- Sidebar Panel -->
+          <aside class="calendar-sidebar">
+            <div class="card">
+              <div class="card-header"><h3><i class="fa-solid fa-clock"></i> Today's Schedule</h3></div>
+              <div id="todaySchedule"><p class="no-classes">No classes today</p></div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3><i class="fa-solid fa-chart-pie"></i> Timetable Info</h3></div>
+              <div class="timetable-info">
+                <p id="timetableStatus">No timetable uploaded</p>
+                <button class="btn-ghost" onclick="openUploadModal()"><i class="fa-solid fa-upload"></i> Upload</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="uploadModal">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h2><i class="fa-solid fa-plus"></i> Add Class</h2>
+          <button class="btn-ghost" onclick="closeUploadModal()"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="add-class-form">
+            <select id="classDay"><option value="">Select Day</option><option value="mon">Monday</option><option value="tue">Tuesday</option><option value="wed">Wednesday</option><option value="thu">Thursday</option><option value="fri">Friday</option><option value="sat">Saturday</option><option value="sun">Sunday</option></select>
+            <input type="text" id="className" placeholder="Subject Name" />
+            <input type="text" id="classTime" placeholder="Time (e.g., 10:00 AM)" />
+            <input type="text" id="classRoom" placeholder="Room (e.g., Room 204)" />
+            <button class="btn-primary" onclick="addClass()" style="width:100%"><i class="fa-solid fa-plus"></i> Add Class</button>
+          </div>
+          <div class="timetable-preview"><h4>Current Timetable:</h4><div id="timetablePreview"><p class="no-classes">No classes added</p></div></div>
+        </div>
+        <div class="modal-footer"><button class="btn-primary" onclick="saveTimetable()" style="width:100%"><i class="fa-solid fa-check"></i> Save Timetable</button></div>
+      </div>
+    </div>
+
+    <script src="calendar.js"></script>
+  </body>
+</html>

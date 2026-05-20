@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusSync — Sign In</title>
+    <meta
+      name="description"
+      content="Sign in to CampusSync — your unified campus management platform for students and professors."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <!-- Animated background scene -->
+    <div class="login-scene" aria-hidden="true">
+      <div class="orb orb--primary"></div>
+      <div class="orb orb--secondary"></div>
+      <div class="orb orb--accent"></div>
+      <div class="grid-overlay"></div>
+      <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Main card -->
+    <div class="container" id="mainContainer">
+      <!-- Decorative info panel (left side) -->
+      <div class="info-panel">
+        <div class="info-ring info-ring--1"></div>
+        <div class="info-ring info-ring--2"></div>
+
+        <div class="info-content info-login">
+          <div class="info-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <h2>Welcome Back!</h2>
+          <p>
+            Sign in to access your classes, schedules, and campus resources all
+            in one place.
+          </p>
+        </div>
+
+        <div class="info-content info-register">
+          <div class="info-icon">
+            <i class="fa-solid fa-user-plus"></i>
+          </div>
+          <h2>Join CampusSync</h2>
+          <p>
+            Create your account to get started with smart scheduling, attendance
+            tracking, and more.
+          </p>
+        </div>
+      </div>
+
+      <!-- Form panel (right side) -->
+      <div class="form-panel">
+        <!-- ========== LOGIN FORM ========== -->
+        <div class="form-box Login" id="loginBox">
+          <h2 class="brand">Campus<span class="sync-text">Sync</span></h2>
+          <p class="form-subtitle">Sign in to your account</p>
+
+          <form id="loginForm" novalidate>
+            <div class="input-box">
+              <input
+                type="text"
+                id="loginUserId"
+                required
+                autocomplete="username"
+              />
+              <label for="loginUserId">User ID</label>
+              <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div class="input-box">
+              <input
+                type="password"
+                id="loginPassword"
+                required
+                autocomplete="current-password"
+              />
+              <label for="loginPassword">Password</label>
+              <i
+                class="fa-solid fa-lock"
+                id="loginPasswordToggle"
+                style="cursor: pointer"
+              ></i>
+            </div>
+
+            <div class="forgot-link">
+              <a href="#">Forgot Password?</a>
+            </div>
+
+            <div class="input-box" style="margin-top: 24px">
+              <button class="btn" type="submit" id="loginBtn">
+                <span>Sign In</span>
+              </button>
+            </div>
+
+            <div class="divider"><span>or</span></div>
+
+            <div class="regi-link">
+              <p>
+                Don't have an account?
+                <a href="#" class="SignUpLink" id="showRegister"
+                  >Create Account</a
+                >
+              </p>
+            </div>
+          </form>
+        </div>
+
+        <!-- ========== REGISTER FORM ========== -->
+        <div class="form-box Register" id="registerBox">
+          <h2 class="brand">Campus<span class="sync-text">Sync</span></h2>
+          <p class="form-subtitle">Create a new account</p>
+
+          <!-- Registration Type Selection -->
+          <div class="reg-type-selection" id="regTypeSelection">
+            <p class="reg-type-label">I am a...</p>
+            <div class="reg-buttons">
+              <button
+                type="button"
+                class="reg-type-btn student-btn"
+                id="studentRegBtn"
+              >
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Student</span>
+              </button>
+              <button
+                type="button"
+                class="reg-type-btn professor-btn"
+                id="professorRegBtn"
+              >
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <span>Professor</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Student Registration Form -->
+          <form id="studentRegisterForm" class="reg-form hidden" novalidate>
+            <div class="form-header">
+              <button type="button" class="back-btn" id="studentBackBtn">
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <h3>Student Registration</h3>
+            </div>
+            <div class="input-box col-span-2">
+              <input type="text" id="studentName" required />
+              <label for="studentName">Full Name</label>
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="input-box autocomplete-box">
+              <input type="text" id="studentCollegeSearch" required autocomplete="off" />
+              <label for="studentCollegeSearch">College</label>
+              <i class="fa-solid fa-building"></i>
+              <div class="search-dropdown hidden" id="studentCollegeDropdown"></div>
+              <input type="hidden" id="studentCollege" required />
+            </div>
+            <div class="input-box">
+              <input type="text" id="studentId" required />
+              <label for="studentId">College ID</label>
+              <i class="fa-solid fa-id-card"></i>
+            </div>
+            <div class="input-box col-span-2">
+              <input type="email" id="studentEmail" required />
+              <label for="studentEmail">College Email</label>
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="input-box col-span-2">
+              <input type="password" id="studentPassword" required />
+              <label for="studentPassword">Set Password</label>
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="input-box col-span-2">
+              <button class="btn" type="submit">
+                <span>Create Account</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Professor Registration Form -->
+          <form id="professorRegisterForm" class="reg-form hidden" novalidate>
+            <div class="form-header">
+              <button type="button" class="back-btn" id="professorBackBtn">
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <h3>Professor Registration</h3>
+            </div>
+            <div class="input-box col-span-2">
+              <input type="text" id="profName" required />
+              <label for="profName">Full Name</label>
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="input-box autocomplete-box">
+              <input type="text" id="profCollegeSearch" required autocomplete="off" />
+              <label for="profCollegeSearch">College</label>
+              <i class="fa-solid fa-building"></i>
+              <div class="search-dropdown hidden" id="profCollegeDropdown"></div>
+              <input type="hidden" id="profCollege" required />
+            </div>
+            <div class="input-box">
+              <input type="text" id="profEmployeeId" required />
+              <label for="profEmployeeId">Employee ID</label>
+              <i class="fa-solid fa-id-badge"></i>
+            </div>
+            <div class="input-box col-span-2">
+              <input type="email" id="profEmail" required />
+              <label for="profEmail">Official Email</label>
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="input-box col-span-2">
+              <input type="password" id="profPassword" required />
+              <label for="profPassword">Password</label>
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="input-box col-span-2">
+              <button class="btn" type="submit">
+                <span>Create Account</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="regi-link" id="registerSignIn">
+            <p>
+              Already have an account?
+              <a href="#" class="SignInLink" id="showLogin">Sign In</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success overlay -->
+    <div class="success-overlay" id="successOverlay">
+      <div class="success-check">
+        <i class="fa-solid fa-check"></i>
+      </div>
+    </div>
+
+    <script src="login.js"></script>
+  </body>
+</html>

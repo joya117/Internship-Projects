@@ -43,10 +43,17 @@ body{
     cursor: pointer;
     transition: all 0.3s;
 }
-.btn:hover{
+.btn:hover:not(.correct):not(.incorrect){
     background-color: #222;
     color: #fff;
-
+}
+.btn.correct{
+    background-color: #9aeabc;
+    color: #155724;
+}
+.btn.incorrect{
+    background-color: #f8d7da;
+    color: #721c24;
 }
 #next-btn{
     background-color: #001e4d;
@@ -59,4 +66,10 @@ body{
     border-radius: 4px;
     cursor: pointer;
     display: none;
+}
+.correct{
+    background: #9aeabc;
+}
+.incorrect{
+    background: #ff9393;
 }

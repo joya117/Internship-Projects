@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Maps</title>
+    </head>
+    <body>
+        <h1>Map Data</h1>
+        <div id="output" style="background: #f0f0f0; padding: 20px; border-radius: 8px; font-family: Arial; font-size: 18px; line-height: 1.8;"></div>
+
+        <script>
+            const person = new Map();
+            person.set("Name", "Joya");
+            person.set("Age", 20);
+            person.set("Email", "joya@gmail.com");
+    
+            let output = "<h2>Individual Data:</h2>";
+            output += `<p><strong>Name:</strong> ${person.get("Name")}</p>`;
+            //output += `<p><strong>Age:</strong> ${person.get("Age")}</p>`;
+            //output += `<p><strong>Email:</strong> ${person.get("Email")}</p>`;
+            
+            output += "<h2>All Data (Using forEach):</h2>";
+            output += "<ul>";
+            person.forEach((value, key) => {
+                output += `<li><strong>${key}:</strong> ${value}</li>`;
+            });
+            output += "</ul>";
+            
+            document.getElementById("output").innerHTML = output;
+            
+            //console.log("Name:", person.get("Name"));
+            //console.log("Age:", person.get("Age"));
+            //console.log("Email:", person.get("Email"));
+        </script>
+    </body>
+</html>

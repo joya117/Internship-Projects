@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusSync — Attendance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="attendance.css" />
+  </head>
+  <body class="theme-student">
+    <div class="dashboard-scene" aria-hidden="true">
+      <div class="orb orb--primary"></div>
+      <div class="orb orb--secondary"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2 class="brand">Campus<span class="sync-text">Sync</span></h2>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+          <a href="calendar.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
+          <a href="attendance.html" class="nav-item active"><i class="fa-solid fa-clipboard-user"></i><span>Attendance</span></a>
+          <a href="workspace.html" class="nav-item"><i class="fa-solid fa-file-lines"></i><span>Lecture Notes</span></a>
+          <div class="nav-section-title">Collaborative Rooms</div>
+          <a href="workspace.html" class="nav-item workspace-item">
+            <span class="color-dot" style="background: #a29bfe"></span>
+            <span>DSA Study Group</span>
+            <span class="online-indicator">3 online</span>
+          </a>
+          <a href="workspace.html" class="nav-item workspace-item">
+            <span class="color-dot" style="background: #ff7675"></span>
+            <span>Project Team Alpha</span>
+            <span class="online-indicator">2 online</span>
+          </a>
+          <div class="nav-section-title">Support</div>
+          <a href="queries.html" class="nav-item"><i class="fa-solid fa-comments"></i><span>Queries inbox</span><span class="badge badge--danger">4</span></a>
+          <a href="#" class="nav-item" id="profileNav"><i class="fa-solid fa-user-gear"></i><span>Profile settings</span></a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-card">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&fit=crop&q=80" alt="Avatar" class="user-avatar" id="sidebarAvatar" />
+            <div class="user-info">
+              <p class="user-name" id="sidebarName">Joya Sen</p>
+              <p class="user-role" id="sidebarRole">Student</p>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Logout">
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Panel -->
+      <main class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left">
+            <h2 class="page-title"><i class="fa-solid fa-clipboard-user"></i> Attendance Verification</h2>
+          </div>
+          <div class="topbar-right">
+            <div class="notification-bell"><i class="fa-solid fa-bell"></i><span class="bell-dot"></span></div>
+            <div class="topbar-user">
+              <span class="user-chip-name" id="topbarUserName">Joya Sen</span>
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&fit=crop&q=80" alt="Avatar" class="user-chip-avatar" id="topbarAvatar" />
+            </div>
+          </div>
+        </header>
+
+        <div class="content-body">
+
+          <!-- ============ STUDENT VIEW ============ -->
+          <div id="studentAttendanceView">
+
+            <!-- Session Gate: No Session Active -->
+            <div id="noSessionGate" class="session-gate-card">
+              <i class="fa-solid fa-lock" style="font-size: 32px; color: var(--text-muted); margin-bottom: 16px;"></i>
+              <h3>No Active Session</h3>
+              <p>Your professor hasn't opened an attendance session yet.<br>You'll be notified when the session goes live.</p>
+            </div>
+
+            <!-- Session Active: Two-step verification -->
+            <div id="sessionActivePanel" class="hidden">
+              <div class="session-active-banner">
+                <div>
+                  <h3>Session Open — Data Structures (CS301)</h3>
+                  <p id="sessionTimerText">Session closes in <strong id="sessionCountdown">10:00</strong></p>
+                </div>
+                <span class="live-dot-badge"><span class="live-dot"></span> LIVE</span>
+              </div>
+
+              <div class="attendance-layout-grid">
+
+                <!-- Left: Face Capture -->
+                <div class="capture-panel glass-panel">
+                  <!-- STEP 1: Register Face -->
+                  <div id="faceRegisterStep">
+                    <div class="step-label">Step 1 of 2 — Register Your Face</div>
+                    <p class="step-desc">Position your face in the frame, then click <strong>Register Face</strong>. This is stored as your biometric reference for this session.</p>
+                    <div class="webcam-viewport" id="registerViewport">
+                      <video id="registerVideo" autoplay muted playsinline></video>
+                      <canvas id="registerCanvas" style="display:none;"></canvas>
+                      <div class="face-target-box">
+                        <span class="corner tl"></span><span class="corner tr"></span>
+                        <span class="corner bl"></span><span class="corner br"></span>
+                      </div>
+                      <div class="scanning-bar" id="scanBarRegister"></div>
+                    </div>
+                    <button class="btn btn-capture full-width" id="registerFaceBtn" style="margin-top: 16px;">
+                      <i class="fa-solid fa-user-plus"></i> Register Face
+                    </button>
+                    <div id="registerStatus" class="capture-status"></div>
+                  </div>
+
+                  <!-- STEP 2: Verify Face + GPS -->
+                  <div id="faceVerifyStep" class="hidden">
+                    <div class="step-label">Step 2 of 2 — Verify Attendance</div>
+                    <p class="step-desc">Look at the camera. Your face and GPS location will be matched to mark you <strong>PRESENT</strong>.</p>
+                    <div class="webcam-viewport" id="verifyViewport">
+                      <video id="verifyVideo" autoplay muted playsinline></video>
+                      <canvas id="verifyCanvas" style="display:none;"></canvas>
+                      <div class="face-target-box">
+                        <span class="corner tl"></span><span class="corner tr"></span>
+                        <span class="corner bl"></span><span class="corner br"></span>
+                      </div>
+                      <div class="scanning-bar" id="scanBarVerify"></div>
+                      <div class="camera-flash" id="cameraFlash"></div>
+                    </div>
+                    <button class="btn btn-capture full-width" id="verifyAttendanceBtn" style="margin-top: 16px;">
+                      <i class="fa-solid fa-expand"></i> Capture & Verify Attendance
+                    </button>
+                    <div id="verifyStatus" class="capture-status"></div>
+                  </div>
+
+                  <!-- STEP 3: Done (Marked Present) -->
+                  <div id="faceVerifiedDone" class="hidden" style="text-align: center; padding: 40px 20px;">
+                    <div class="circular-streak-badge" style="margin: 0 auto 20px auto; border-color: var(--success); box-shadow: 0 0 20px rgba(29, 158, 117, 0.35);">
+                      <i class="fa-solid fa-check" style="font-size: 32px; color: var(--success);"></i>
+                    </div>
+                    <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Attendance Recorded!</h3>
+                    <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6;">You have been marked <strong>PRESENT</strong> for this session.<br>You may now safely close this page or return to the dashboard.</p>
+                    <a href="dashboard.html" class="btn btn-secondary" style="margin-top: 24px; display: inline-flex;"><i class="fa-solid fa-house"></i> Return to Dashboard</a>
+                  </div>
+
+                  <!-- GPS Coordinates -->
+                  <div class="gps-info-row" id="gpsInfoRow">
+                    <div class="gps-info-item">
+                      <span class="gps-label">Your Location</span>
+                      <span class="gps-val" id="studentGpsDisplay">Fetching…</span>
+                    </div>
+                    <div class="gps-info-item">
+                      <span class="gps-label">Classroom GPS</span>
+                      <span class="gps-val" id="classroomGpsDisplay">Waiting…</span>
+                    </div>
+                    <div class="gps-info-item">
+                      <span class="gps-label">Distance</span>
+                      <span class="gps-val" id="gpsDistanceDisplay">—</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right: Status + Streaks + Grace -->
+                <div class="gamified-panel">
+
+                  <!-- Verification Steps -->
+                  <div class="agenda-card glass-panel">
+                    <h3>Verification Status</h3>
+                    <div class="status-steps">
+                      <div class="status-step" id="stepGPS">
+                        <div class="step-dot"></div>
+                        <div class="step-meta">
+                          <h4>GPS Location Match</h4>
+                          <p id="gpsStepText">Waiting for session…</p>
+                        </div>
+                      </div>
+                      <div class="status-step" id="stepFace">
+                        <div class="step-dot"></div>
+                        <div class="step-meta">
+                          <h4>Face Recognition</h4>
+                          <p id="faceStepText">Waiting for face registration…</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="verification-result hidden" id="verificationResultBox">
+                      <h4 id="resultHeading"></h4>
+                      <p id="resultParagraph"></p>
+                      <div class="result-action-buttons hidden" id="disputeActions">
+                        <button class="btn btn-secondary btn-small" id="applyGraceBtn">Use Grace Credit</button>
+                        <button class="btn btn-secondary btn-small" id="raiseDisputeBtn">Raise Dispute</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Streak Card -->
+                  <div class="agenda-card glass-panel" style="margin-top: 20px;">
+                    <h3>Attendance Streak</h3>
+                    <div class="streak-row">
+                      <div class="streak-number">5</div>
+                      <div class="streak-info">
+                        <strong>Days in a Row</strong>
+                        <p>Keep attending to earn credits. You're on a great run!</p>
+                      </div>
+                    </div>
+                    <div class="milestones-row" style="margin-top: 16px;">
+                      <div class="milestone-chip unlocked">3 Days ✓</div>
+                      <div class="milestone-chip unlocked active">5 Days ✓</div>
+                      <div class="milestone-chip locked">10 Days</div>
+                    </div>
+                  </div>
+
+                  <!-- Grace Credits Card -->
+                  <div class="agenda-card glass-panel" style="margin-top: 20px;">
+                    <div class="grace-header">
+                      <h3>Grace Credits</h3>
+                      <span class="badge badge--success" id="graceCounter">3 Left</span>
+                    </div>
+                    <p class="grace-paragraph">You have 3 auto-excused GPS failures this semester. Use a grace credit if GPS fails indoors.</p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ============ PROFESSOR VIEW ============ -->
+          <div id="professorAttendanceView" class="hidden">
+
+            <div class="prof-control-header">
+              <div>
+                <h3>Attendance Control Panel</h3>
+                <p>Open a session window for your class. Students must verify GPS + face within the time window.</p>
+              </div>
+            </div>
+
+            <div class="attendance-layout-grid">
+
+              <!-- Left: Session Control -->
+              <div class="capture-panel glass-panel">
+                <h3 style="margin-bottom: 20px;">Open Attendance Session</h3>
+
+                <div class="prof-session-form">
+                  <div class="form-group">
+                    <label>Subject</label>
+                    <select id="profSubjectSelect">
+                      <option value="CS301">Data Structures & Algorithms (CS301)</option>
+                      <option value="CS302">Advanced Web Design (CS302)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Session Duration</label>
+                    <select id="profDurationSelect">
+                      <option value="10">10 minutes</option>
+                      <option value="15">15 minutes</option>
+                      <option value="20">20 minutes</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Professor GPS -->
+                <div class="gps-info-row" style="margin-top: 20px;">
+                  <div class="gps-info-item">
+                    <span class="gps-label">Your Location (Classroom GPS)</span>
+                    <span class="gps-val" id="profGpsDisplay">Not locked yet</span>
+                  </div>
+                </div>
+
+                <button class="btn btn-prof full-width" id="profLockGpsBtn" style="margin-top: 16px;">
+                  <i class="fa-solid fa-location-crosshairs"></i> Lock My GPS Location
+                </button>
+
+                <button class="btn btn-prof full-width" id="profOpenSessionBtn" style="margin-top: 12px;" disabled>
+                  <i class="fa-solid fa-door-open"></i> Open Attendance Session
+                </button>
+
+                <button class="btn btn-secondary full-width hidden" id="profCloseSessionBtn" style="margin-top: 12px;">
+                  <i class="fa-solid fa-door-closed"></i> Close Session Early
+                </button>
+
+                <div id="profSessionStatus" class="capture-status" style="margin-top: 12px;"></div>
+              </div>
+
+              <!-- Right: Live Attendance Log -->
+              <div class="gamified-panel">
+                <div class="agenda-card glass-panel">
+                  <div class="grace-header">
+                    <h3>Live Attendance Log</h3>
+                    <span class="badge badge--success" id="presentCountBadge">0 Present</span>
+                  </div>
+                  <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Students who verified will appear below in real time.</p>
+                  <div id="liveAttendanceList" class="live-list">
+                    <p class="empty-state-text">No students marked present yet.</p>
+                  </div>
+                </div>
+
+                <div class="agenda-card glass-panel" style="margin-top: 20px;">
+                  <h3>Low Attendance Alerts</h3>
+                  <div class="alert-row-item">
+                    <div class="alert-info">
+                      <h4>Aarav Sharma (2K22/IT/012)</h4>
+                      <p>64% in CS301 — below 75% threshold</p>
+                    </div>
+                    <span class="badge badge--danger">FLAG</span>
+                  </div>
+                  <div class="alert-row-item" style="margin-top: 8px;">
+                    <div class="alert-info">
+                      <h4>Meera Nair (2K22/IT/038)</h4>
+                      <p>71% in CS301 — below 75% threshold</p>
+                    </div>
+                    <span class="badge badge--danger">FLAG</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+
+    <div class="toast" id="actionToast">
+      <i class="fa-solid fa-circle-check"></i>
+      <span id="toastMsg">Done!</span>
+    </div>
+
+    <script src="attendance.js"></script>
+    <script src="profile-settings.js"></script>
+  </body>
+</html>
