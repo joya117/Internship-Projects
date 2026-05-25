@@ -20,7 +20,9 @@
     <div class="dashboard-scene" aria-hidden="true">
       <div class="orb orb--primary"></div>
       <div class="orb orb--secondary"></div>
+      <div class="orb orb--accent"></div>
       <div class="grid-overlay"></div>
+      <div class="particles" id="particles"></div>
     </div>
 
     <div class="dashboard-container">
@@ -147,58 +149,8 @@
             <!-- Sidebar Day Agenda -->
             <div class="agenda-sidebar">
               
-              <!-- Smart Class Note-taking Panel -->
-              <div class="agenda-card glass-panel note-recorder-panel" id="recorderPanel">
-                <h3><i class="fa-solid fa-microphone-lines"></i> AI Note-Taking Recorder</h3>
-                <p class="recorder-subtitle">Record your ongoing lecture to automatically transcribe & generate structured notes.</p>
-                
-                <div class="recorder-visualizer">
-                  <div class="waveform" id="waveform">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                  </div>
-                  <div class="timer" id="recordingTimer">00:00</div>
-                </div>
-
-                <div class="recorder-actions">
-                  <button class="btn btn-record" id="startRecordingBtn">
-                    <i class="fa-solid fa-play"></i> Start Lecture Class
-                  </button>
-                  <button class="btn btn-stop hidden" id="stopRecordingBtn">
-                    <i class="fa-solid fa-stop"></i> Stop & Generate Notes
-                  </button>
-                </div>
-
-                <!-- Note loading processing logs -->
-                <div class="transcribe-processing hidden" id="transcribeProcessing">
-                  <div class="spinner"></div>
-                  <p id="processingStatus">Whisper transcribing lecture audio...</p>
-                  <span class="progress-subtext">Converting speech data (Whisper API)</span>
-                </div>
-              </div>
-
-              <!-- Dynamic generated AI notes display card -->
-              <div class="agenda-card glass-panel hidden" id="aiGeneratedNotesCard" style="animation: formSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;">
-                <div class="note-card-header">
-                  <h3><i class="fa-solid fa-wand-magic-sparkles"></i> AI Generated Lecture Notes</h3>
-                  <button class="close-notes-btn" id="closeNotesCardBtn"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div class="note-view-body" id="generatedNoteContent">
-                  <!-- Filled via Javascript dynamic mocks -->
-                </div>
-                <div class="note-actions">
-                  <button class="btn btn-small" id="saveNoteToWorkspace"><i class="fa-solid fa-floppy-disk"></i> Save to DSA Workspace</button>
-                </div>
-              </div>
-
               <!-- Scheduled lectures panel for selected date -->
-              <div class="agenda-card glass-panel" style="margin-top: 20px;">
+              <div class="agenda-card glass-panel">
                 <h3>Lectures Agenda (May 19, 2026)</h3>
                 <div class="agenda-list" id="agendaList">
                   <div class="agenda-item active">

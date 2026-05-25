@@ -3,10 +3,11 @@
     {
       "userId": "joyasen",
       "password": "student123",
-      "name": "Joya Sen",
+      "name": "Joya",
       "role": "student",
       "college": "Thapar Institute of Engineering & Technology (TIET) Patiala",
-      "email": "joya@tiet.edu"
+      "email": "joya@tiet.edu",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&fit=crop&q=80"
     },
     {
       "userId": "joyaprofy",
@@ -14,48 +15,17 @@
       "name": "Prof. Joya Sen",
       "role": "professor",
       "college": "Thapar Institute of Engineering & Technology (TIET) Patiala",
-      "email": "joyasen@tiet.edu"
+      "email": "joyasen@tiet.edu",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&fit=crop&q=80"
     }
   ],
   "notes": {
-    "dsa_group": "# Graph Algorithm Study Notes\n\n## 1. Depth-First Search (DFS)\nDFS is a graph traversal algorithm that explores as far as possible along each branch before backtracking.\n\n### Structural mechanics:\n* Uses a **Stack** data structure (recursive or call-stack).\n* Traverses deep into adjacent lists.\n* Vertex markings avoid loop overflows.\n\n### Time Complexity: \n`O(V + E)` where `V` is vertices and `E` is edges.\n\n---\n\n## 2. Breadth-First Search (BFS)\nBFS is another traversal mechanism that visits neighbors level by level.\n* Uses a **Queue** structure.\n* Optimal for shortest path detection in unweighted graphs.",
-    "project_alpha": "# Web Engineering Project Team Alpha\n\n## REST vs GraphQL Comparison\n- **REST**: Multiple endpoints, fixed data payload sizes, over-fetching concerns.\n- **GraphQL**: Unified single query endpoint, flexible client-defined response structures, requires complex backend parsers.",
-    "math202": "# Discrete Mathematics MATH202\n\n## circular Permutations\nNumber of circular arrangements of n distinct elements is `(n - 1)!`."
+    "project-5": "{\"note-1\":{\"title\":\"Main Notes\",\"content\":\"# project-5\\n\\n\",\"drawing\":\"\"}}",
+    "Co25": "{}"
   },
   "chats": {
-    "dsa_group": [
-      {
-        "sender": "Aarav Sharma",
-        "role": "student",
-        "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&fit=crop&q=80",
-        "text": "Hey, I added the DFS stack mechanics summary in the shared note. Let me know if that works!",
-        "time": "10:14 AM"
-      },
-      {
-        "sender": "Meera Nair",
-        "role": "student",
-        "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&fit=crop&q=80",
-        "text": "Looks great Aarav. I will add BFS comparative structures in a new sub-heading shortly.",
-        "time": "10:28 AM"
-      },
-      {
-        "sender": "Joya Sen",
-        "role": "student",
-        "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&fit=crop&q=80",
-        "text": "Awesome! Let's complete the Graph Midterm prep notes today.",
-        "time": "10:35 AM"
-      }
-    ],
-    "project_alpha": [
-      {
-        "sender": "Aarav Sharma",
-        "role": "student",
-        "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&fit=crop&q=80",
-        "text": "Did we complete the REST API routing schema draft for the project submission?",
-        "time": "Yesterday"
-      }
-    ],
-    "math202": []
+    "project-5": [],
+    "Co25": []
   },
   "queries": []
 }

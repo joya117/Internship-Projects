@@ -287,6 +287,58 @@ app.post('/api/attendance', (req, res) => {
   res.json({ success: true });
 });
 
+/* ==================== LIVE WORKSPACE SESSION API ==================== */
+let activeLiveSession = {
+  active: false,
+  host: null,
+  group: null,
+  content: "",
+  allowEditing: false
+};
+
+app.get('/api/live-session', (req, res) => {
+  res.json(activeLiveSession);
+});
+
+app.post('/api/live-session/start', (req, res) => {
+  const { host, group, content, allowEditing } = req.body;
+  activeLiveSession = {
+    active: true,
+    host: host || "Joya Sen",
+    group: group || "DSA Study Group",
+    content: content || "",
+    allowEditing: allowEditing !== undefined ? allowEditing : false
+  };
+  console.log(`[LIVE] Session started by ${activeLiveSession.host} in group ${activeLiveSession.group} (Allow editing: ${activeLiveSession.allowEditing})`);
+  res.json({ success: true, liveSession: activeLiveSession });
+});
+
+app.post('/api/live-session/sync', (req, res) => {
+  const { content, allowEditing } = req.body;
+  if (activeLiveSession.active) {
+    if (content !== undefined) {
+      activeLiveSession.content = content;
+    }
+    if (allowEditing !== undefined) {
+      activeLiveSession.allowEditing = allowEditing;
+      console.log(`[LIVE] Permission update: Allow editing: ${activeLiveSession.allowEditing}`);
+    }
+  }
+  res.json({ success: true, liveSession: activeLiveSession });
+});
+
+app.post('/api/live-session/stop', (req, res) => {
+  activeLiveSession = {
+    active: false,
+    host: null,
+    group: null,
+    content: "",
+    allowEditing: false
+  };
+  console.log(`[LIVE] Session stopped.`);
+  res.json({ success: true, liveSession: activeLiveSession });
+});
+
 // Server default launch router fallback
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'login.html'));

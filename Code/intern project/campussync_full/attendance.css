@@ -1,6 +1,6 @@
 /* =============================================
    CampusSync — Attendance Page Styles
-   Clean, minimal, text-driven design
+   Premium Light Theme Aesthetic
    ============================================= */
 
 /* Layout */
@@ -13,18 +13,20 @@
 
 /* Session Gate (No Session Active) */
 .session-gate-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  background: var(--card);
+  border: 1.5px solid var(--border);
   border-radius: 16px;
   padding: 60px 40px;
   text-align: center;
   max-width: 500px;
   margin: 0 auto;
+  box-shadow: var(--shadow-md);
 }
 .session-gate-card h3 {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 10px;
+  color: var(--text-primary);
 }
 .session-gate-card p {
   font-size: 13px;
@@ -37,16 +39,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  background: var(--card);
+  border: 1.5px solid var(--border);
   border-radius: 12px;
   padding: 16px 22px;
   margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
 }
 .session-active-banner h3 {
   font-size: 15px;
   font-weight: 700;
   margin-bottom: 4px;
+  color: var(--text-primary);
 }
 .session-active-banner p {
   font-size: 12px;
@@ -85,8 +89,11 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  color: var(--primary-soft);
+  color: var(--primary);
   margin-bottom: 8px;
+}
+body.theme-professor .step-label {
+  color: var(--prof-primary);
 }
 .step-desc {
   font-size: 12px;
@@ -102,8 +109,8 @@
   aspect-ratio: 4/3;
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid var(--glass-border);
-  background: #0a0a0e;
+  border: 2px solid var(--border);
+  background: #1e293b;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,7 +131,7 @@
   position: absolute;
   width: 160px;
   height: 200px;
-  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border: 1.5px dashed rgba(255, 255, 255, 0.35);
   border-radius: 20px;
   pointer-events: none;
 }
@@ -132,14 +139,14 @@
   position: absolute;
   width: 18px;
   height: 18px;
-  border: 3px solid var(--primary-soft);
+  border: 3px solid var(--primary);
   pointer-events: none;
 }
 .corner.tl { top: -2px; left: -2px; border-right: none; border-bottom: none; border-radius: 8px 0 0 0; }
 .corner.tr { top: -2px; right: -2px; border-left: none; border-bottom: none; border-radius: 0 8px 0 0; }
 .corner.bl { bottom: -2px; left: -2px; border-right: none; border-top: none; border-radius: 0 0 0 8px; }
 .corner.br { bottom: -2px; right: -2px; border-left: none; border-top: none; border-radius: 0 0 8px 0; }
-body.theme-professor .corner { border-color: #1dd1a1; }
+body.theme-professor .corner { border-color: var(--prof-primary); }
 
 /* Scanning Bar */
 .scanning-bar {
@@ -182,7 +189,7 @@ body.theme-professor .corner { border-color: #1dd1a1; }
 
 /* Capture Button */
 .btn-capture {
-  background: linear-gradient(135deg, var(--primary), #9b59b6);
+  background: linear-gradient(135deg, var(--primary), var(--primary-soft));
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -196,11 +203,13 @@ body.theme-professor .corner { border-color: #1dd1a1; }
   gap: 8px;
   transition: opacity 0.2s ease;
   width: 100%;
+  box-shadow: 0 4px 12px var(--primary-glow);
 }
-.btn-capture:hover { opacity: 0.9; }
-.btn-capture:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-capture:hover { opacity: 0.95; transform: translateY(-1px); }
+.btn-capture:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; }
 body.theme-professor .btn-capture {
-  background: linear-gradient(135deg, var(--prof-primary, #0f6e56), #1dd1a1);
+  background: linear-gradient(135deg, var(--prof-primary), var(--prof-soft));
+  box-shadow: 0 4px 12px var(--prof-glow);
 }
 
 /* Capture Status Messages */
@@ -221,8 +230,8 @@ body.theme-professor .btn-capture {
   gap: 12px;
   margin-top: 20px;
   padding: 14px;
-  background: rgba(0, 0, 0, 0.15);
-  border: 1px solid var(--glass-border);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
   border-radius: 10px;
 }
 .gps-info-item {
@@ -234,7 +243,7 @@ body.theme-professor .btn-capture {
   font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-muted);
 }
 .gps-val {
@@ -260,15 +269,15 @@ body.theme-professor .btn-capture {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--glass-border);
+  background: var(--border);
   border: 2px solid var(--text-muted);
   margin-top: 4px;
   flex-shrink: 0;
   transition: all 0.3s ease;
 }
 .status-step.pending .step-dot {
-  border-color: var(--warning, #f0a500);
-  background: rgba(240, 165, 0, 0.15);
+  border-color: var(--warning, #ed8936);
+  background: rgba(237, 137, 54, 0.15);
   animation: pulseLive 1.5s infinite;
 }
 .status-step.completed .step-dot {
@@ -277,12 +286,13 @@ body.theme-professor .btn-capture {
 }
 .status-step.failed .step-dot {
   border-color: var(--danger);
-  background: rgba(226, 75, 74, 0.2);
+  background: rgba(229, 62, 62, 0.2);
 }
 .step-meta h4 {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 2px;
+  color: var(--text-primary);
 }
 .step-meta p {
   font-size: 11px;
@@ -295,9 +305,8 @@ body.theme-professor .btn-capture {
 
 /* Verification Result Box */
 .verification-result {
-  border-top: 1px solid var(--glass-border);
+  border-top: 1px solid var(--border);
   padding-top: 16px;
-  animation: formSlideIn 0.3s ease both;
 }
 .verification-result h4 {
   font-size: 13px;
@@ -323,22 +332,26 @@ body.theme-professor .btn-capture {
   align-items: center;
   gap: 18px;
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--glass-border);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
   border-radius: 10px;
 }
 .streak-number {
   font-size: 36px;
   font-weight: 800;
-  color: var(--primary-soft);
+  color: var(--primary);
   line-height: 1;
   flex-shrink: 0;
+}
+body.theme-professor .streak-number {
+  color: var(--prof-primary);
 }
 .streak-info strong {
   font-size: 13px;
   font-weight: 700;
   display: block;
   margin-bottom: 4px;
+  color: var(--text-primary);
 }
 .streak-info p {
   font-size: 11px;
@@ -355,21 +368,22 @@ body.theme-professor .btn-capture {
   flex: 1;
   text-align: center;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   padding: 7px 10px;
   border-radius: 8px;
-  border: 1px solid var(--glass-border);
+  border: 1.5px solid var(--border);
   color: var(--text-muted);
+  background: #ffffff;
 }
 .milestone-chip.unlocked {
-  border-color: rgba(29, 158, 117, 0.4);
+  border-color: var(--success);
   color: var(--success);
 }
 .milestone-chip.unlocked.active {
-  background: rgba(29, 158, 117, 0.08);
+  background: rgba(72, 187, 120, 0.08);
 }
 .milestone-chip.locked {
-  opacity: 0.4;
+  opacity: 0.45;
 }
 
 /* Grace Credits Header */
@@ -394,6 +408,7 @@ body.theme-professor .btn-capture {
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 4px;
+  color: var(--text-primary);
 }
 .prof-control-header p {
   font-size: 13px;
@@ -413,17 +428,21 @@ body.theme-professor .btn-capture {
 }
 .form-group select {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--glass-border);
+  background: #ffffff;
+  border: 1.5px solid var(--border);
   border-radius: 10px;
   padding: 11px 14px;
-  color: var(--text-primary, #fff);
+  color: var(--text-primary);
   font-size: 13px;
   outline: none;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
+  transition: border-color 0.2s;
 }
-.form-group select option { background: #12121a; }
+.form-group select:focus {
+  border-color: var(--prof-primary);
+}
+.form-group select option { background: #ffffff; color: var(--text-primary); }
 
 /* GPS info row for professor (single item full-width) */
 #profGpsDisplay { font-size: 12px; }
@@ -435,12 +454,12 @@ body.theme-professor .btn-capture {
   justify-content: space-between;
   align-items: center;
   padding: 10px 14px;
-  background: rgba(29, 158, 117, 0.05);
-  border: 1px solid rgba(29, 158, 117, 0.2);
+  background: var(--prof-light);
+  border: 1.5px solid var(--prof-soft);
   border-radius: 8px;
   font-size: 12px;
-  font-weight: 600;
-  animation: formSlideIn 0.3s ease both;
+  font-weight: 700;
+  color: var(--prof-primary);
 }
 .live-list-item span { font-size: 11px; color: var(--success); font-weight: 700; }
 .empty-state-text {
@@ -457,7 +476,7 @@ body.theme-professor .btn-capture {
   align-items: center;
   gap: 12px;
 }
-.alert-info h4 { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.alert-info h4 { font-size: 13px; font-weight: 700; margin-bottom: 2px; color: var(--text-primary); }
 .alert-info p { font-size: 11px; color: var(--text-muted); }
 
 /* Full-width util */
@@ -468,21 +487,33 @@ body.theme-professor .btn-capture {
 
 /* Agenda card (shared glass card style) */
 .agenda-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  background: var(--card);
+  border: 1.5px solid var(--border);
   border-radius: 14px;
   padding: 20px;
+  box-shadow: var(--shadow-sm);
 }
 .agenda-card h3 {
   font-size: 15px;
   font-weight: 700;
   margin-bottom: 16px;
+  color: var(--text-primary);
 }
 
 /* Responsive */
 @media (max-width: 900px) {
   .attendance-layout-grid { grid-template-columns: 1fr; }
   .gps-info-row { grid-template-columns: 1fr; }
+}
+
+/* Circular streak badge */
+.circular-streak-badge {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: 3px solid var(--success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(72, 187, 120, 0.15);
 }

@@ -3,27 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CampusSync — Collaborative Room</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <title>CampusSync — Workspace</title>
+    <meta name="description" content="CampusSync collaborative workspace with group chat and shared notepad." />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="dashboard.css" />
     <link rel="stylesheet" href="workspace.css" />
   </head>
   <body class="theme-student">
+
     <!-- Animated background scene -->
     <div class="dashboard-scene" aria-hidden="true">
       <div class="orb orb--primary"></div>
       <div class="orb orb--secondary"></div>
+      <div class="orb orb--accent"></div>
       <div class="grid-overlay"></div>
+      <div class="particles" id="particles"></div>
     </div>
 
+    <!-- Main Container -->
     <div class="dashboard-container">
+
       <!-- Sidebar Navigation -->
       <aside class="sidebar">
         <div class="sidebar-header">
@@ -31,50 +31,42 @@
         </div>
 
         <nav class="sidebar-nav">
-          <a href="dashboard.html" class="nav-item">
+          <a href="dashboard.html" class="nav-item" id="navDashboard">
             <i class="fa-solid fa-house"></i>
             <span>Dashboard</span>
           </a>
-          <a href="calendar.html" class="nav-item">
+          <a href="calendar.html" class="nav-item" id="navCalendar">
             <i class="fa-solid fa-calendar-days"></i>
             <span>Calendar</span>
           </a>
-          <a href="attendance.html" class="nav-item">
+          <a href="attendance.html" class="nav-item" id="navAttendance">
             <i class="fa-solid fa-clipboard-user"></i>
             <span>Attendance</span>
-            <span class="badge badge--success">Streak</span>
           </a>
-          <a href="workspace.html" class="nav-item" id="notesNav">
+          <a href="workspace.html" class="nav-item active" id="notesNav">
             <i class="fa-solid fa-file-lines"></i>
             <span>Lecture Notes</span>
           </a>
 
-          <div class="nav-section-title">Collaborative Rooms</div>
-          <a href="workspace.html" class="nav-item workspace-item active">
-            <span class="color-dot" style="background: #a29bfe"></span>
-            <span>DSA Study Group</span>
-            <span class="online-indicator">3 online</span>
+          <div class="nav-section-title">Rooms</div>
+          <a href="workspace.html" class="nav-item workspace-item" data-sidebar-group-id="project-5" id="sidebarGroup1">
+            <span class="color-dot" style="background:#5c6bc0"></span>
+            <span>project-5</span>
           </a>
-          <a href="workspace.html" class="nav-item workspace-item">
-            <span class="color-dot" style="background: #ff7675"></span>
-            <span>Project Team Alpha</span>
-            <span class="online-indicator">2 online</span>
-          </a>
-          <a href="workspace.html" class="nav-item workspace-item">
-            <span class="color-dot" style="background: #ffeaa7"></span>
-            <span>Exam Prep MATH202</span>
-            <span class="online-indicator">0 online</span>
+          <a href="workspace.html" class="nav-item workspace-item" data-sidebar-group-id="Co25" id="sidebarGroup2">
+            <span class="color-dot" style="background:#0f6e56"></span>
+            <span>Co25</span>
           </a>
 
           <div class="nav-section-title">Support</div>
-          <a href="queries.html" class="nav-item">
+          <a href="queries.html" class="nav-item" id="navQueries">
             <i class="fa-solid fa-comments"></i>
-            <span>Queries inbox</span>
-            <span class="badge badge--danger">4</span>
+            <span>Queries</span>
+            <span class="badge badge--danger" id="queryBadge">4</span>
           </a>
           <a href="#" class="nav-item" id="profileNav">
             <i class="fa-solid fa-user-gear"></i>
-            <span>Profile settings</span>
+            <span>Settings</span>
           </a>
         </nav>
 
@@ -92,17 +84,18 @@
         </div>
       </aside>
 
-      <!-- Main Panel Wrapper -->
+      <!-- Main Panel -->
       <main class="main-panel">
-        <!-- Top bar -->
+
+        <!-- Topbar -->
         <header class="topbar">
           <div class="topbar-left">
-            <h2 class="page-title"><span class="color-dot" style="background: #a29bfe; display:inline-block; width:12px; height:12px; margin-right:8px;"></span> DSA Study Group</h2>
+            <h2 class="page-title"><i class="fa-solid fa-file-lines"></i> Collaborative Workspace</h2>
           </div>
-
           <div class="topbar-right">
-            <div class="workspace-active-badge">
-              <i class="fa-solid fa-user-group"></i> <span>3 Members Active Now</span>
+            <div class="notification-bell">
+              <i class="fa-solid fa-bell"></i>
+              <span class="bell-dot"></span>
             </div>
             <div class="topbar-user">
               <span class="user-chip-name" id="topbarUserName">Joya Sen</span>
@@ -111,177 +104,314 @@
           </div>
         </header>
 
-        <!-- Main Workspace split structure -->
-        <div class="workspace-layout-grid">
-          
-          <!-- Left/Middle Section: Shared Notes and Discussion Forum -->
-          <div class="left-working-zone">
-            
-            <!-- Collaborative Shared note tab panel -->
-            <div class="shared-note-editor glass-panel">
-              <div class="editor-header">
-                <div class="editor-title-meta">
-                  <h3><i class="fa-solid fa-file-pen"></i> Collaborative Notes: DFS Traversal</h3>
-                  <span class="sync-status-dot" id="syncStatus"><span class="pulse-green"></span> Saved to cloud (Last sync: 2s ago)</span>
+        <!-- Content Body -->
+        <div class="content-body ws-content-body">
+
+          <!-- Two-column layout -->
+          <div class="workspace-layout-grid">
+
+            <!-- ========== LEFT: WhatsApp-style Chat ========== -->
+            <div class="groups-chat-panel">
+              <div class="discussion-chat ws-chat-panel" id="wsChatPanel">
+
+                <!-- Chat List View (WhatsApp main screen) -->
+                <div id="chatListView" class="chat-view-panel">
+                  <div class="wa-chat-header">
+                    <div>
+                      <h3 class="wa-title">Chats</h3>
+                      <p class="wa-subtitle">Select a group to open conversation</p>
+                    </div>
+                  </div>
+
+                  <!-- Search bar -->
+                  <div class="wa-search-bar">
+                    <i class="fa-solid fa-magnifying-glass wa-search-icon"></i>
+                    <input type="text" id="chatSearchInput" placeholder="Search or start new chat..." class="wa-search-input" />
+                  </div>
+
+                  <!-- Chat list rows -->
+                  <div class="whatsapp-chat-list" id="waChatList">
+                    <div class="chat-list-item" data-chat-group-id="project-5" id="chatItem-project-5">
+                      <div class="chat-item-avatar" style="background: linear-gradient(135deg,#5c6bc0,#3949ab);">P5</div>
+                      <div class="chat-item-details">
+                        <div class="chat-item-header">
+                          <h4 class="chat-item-name">project-5</h4>
+                          <span class="chat-item-time" id="time-project-5">Now</span>
+                        </div>
+                        <p class="chat-item-snippet" id="snippet-project-5">📢 Click to open conversation...</p>
+                      </div>
+                    </div>
+
+                    <div class="chat-list-item" data-chat-group-id="Co25" id="chatItem-Co25">
+                      <div class="chat-item-avatar" style="background: linear-gradient(135deg,#0f6e56,#00897b);">Co</div>
+                      <div class="chat-item-details">
+                        <div class="chat-item-header">
+                          <h4 class="chat-item-name">Co25</h4>
+                          <span class="chat-item-time" id="time-Co25">Yesterday</span>
+                        </div>
+                        <p class="chat-item-snippet" id="snippet-Co25">Start collaborative discussion...</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="editor-view-toggles">
-                  <button class="toggle-view-btn active" id="btnEditView">Write &amp; Preview</button>
-                  <button class="toggle-view-btn" id="btnFullPreview">Full View</button>
+
+                <!-- Conversation View (individual chat room) -->
+                <div id="chatConversationView" class="chat-view-panel hidden">
+                  <!-- Chat room header bar -->
+                  <div class="wa-convo-header">
+                    <button id="btnBackToChats" class="wa-back-btn" title="Back to Chats">
+                      <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div class="wa-convo-avatar-wrap">
+                      <div class="wa-convo-avatar" id="activeConvoAvatar">P5</div>
+                    </div>
+                    <div class="wa-convo-meta">
+                      <h3 id="activeChatTitle" class="wa-convo-name">project-5 Discussion Board</h3>
+                      <p id="chatMembersSubtitle" class="wa-convo-members">Joya, Aarav, Meera</p>
+                    </div>
+                    <button id="btnOpenAddMember" class="wa-add-member-btn" title="Add Member">
+                      <i class="fa-solid fa-user-plus"></i>
+                    </button>
+                  </div>
+
+                  <!-- Messages area -->
+                  <div class="messages-container wa-messages" id="chatMessagesBox">
+                    <!-- Messages rendered here -->
+                  </div>
+
+                  <!-- Message input -->
+                  <form id="workspaceChatForm" class="wa-input-bar">
+                    <button type="button" class="wa-emoji-btn" title="Emoji" id="btnChatEmoji">
+                      <i class="fa-regular fa-face-smile"></i>
+                    </button>
+                    <button type="button" class="wa-attach-btn" title="Attach" id="btnChatAttach">
+                      <i class="fa-solid fa-paperclip"></i>
+                    </button>
+                    <input type="text" id="chatMessageInput" placeholder="Type a message..." class="wa-msg-input" autocomplete="off" required />
+                    <button type="submit" class="wa-send-btn" id="btnSendMessage" title="Send">
+                      <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                  </form>
                 </div>
-              </div>
 
-              <!-- Editor split panes -->
-              <div class="editor-split-panes" id="editorPanes">
-                <!-- Text editor -->
-                <div class="editor-textarea-pane">
-                  <textarea id="markdownTextarea" placeholder="Write shared Markdown note here..."># Graph Algorithm Study Notes
-
-## 1. Depth-First Search (DFS)
-DFS is a graph traversal algorithm that explores as far as possible along each branch before backtracking.
-
-### Structural mechanics:
-* Uses a **Stack** data structure (recursive or call-stack).
-* Traverses deep into adjancent lists.
-* Vertex markings avoid loop overflows.
-
-### Time Complexity: 
-`O(V + E)` where `V` is vertices and `E` is edges.</textarea>
-                </div>
-
-                <!-- Markdown output preview -->
-                <div class="editor-preview-pane markdown-render" id="markdownPreview">
-                  <!-- Generated dynamic HTML goes here -->
-                </div>
               </div>
             </div>
 
-            <!-- Discussion Chat Forum (SMS-Style Threading) -->
-            <div class="discussion-chat glass-panel" style="margin-top: 24px;">
-              <div class="chat-header">
-                <h3><i class="fa-solid fa-comments"></i> Workspace Discussion Desk</h3>
+            <!-- ========== RIGHT: Notepad ========== -->
+            <div class="notepad-canvas-panel">
+
+              <!-- Tablet frame -->
+              <div class="tablet-portfolio-frame">
+
+                <!-- Spiral rings -->
+                <div class="notebook-spirals">
+                  <span class="notebook-ring"></span>
+                  <span class="notebook-ring"></span>
+                  <span class="notebook-ring"></span>
+                  <span class="notebook-ring"></span>
+                  <span class="notebook-ring"></span>
+                  <span class="notebook-ring"></span>
+                  <span class="notebook-ring"></span>
+                  <span class="notebook-ring"></span>
+                </div>
+
+                <!-- Notepad editor panel -->
+                <div class="shared-note-editor">
+
+                  <!-- Editor Header -->
+                  <div class="editor-header">
+                    <div class="editor-title-meta">
+                      <div class="editor-header-top">
+                        <h3 id="notesRoomTitle"><i class="fa-solid fa-file-pen"></i> Collaborative Notes: project-5</h3>
+                        <span class="sync-status-dot" id="syncStatus">
+                          <span class="pulse-green"></span> Connected (Ready)
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Action buttons row -->
+                    <div class="editor-actions-row">
+                      <button type="button" id="btnShareNoteToChat" title="Share notepad link in chat" class="btn-share-note">
+                        <i class="fa-solid fa-share-nodes"></i> Share to Chat
+                      </button>
+                      <button type="button" id="btnModeDraw" class="btn-draw-toggle">
+                        <i class="fa-solid fa-pen-nib"></i> Draw
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Note Tabs Bar -->
+                  <div class="note-tabs-bar">
+                    <div id="noteTabsWrapper" class="note-tabs-inner">
+                      <!-- Tabs injected here -->
+                    </div>
+                    <button type="button" id="btnCreateNewNote" class="btn-new-tab" title="New Note">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </div>
+
+                  <!-- Formatting utility bar -->
+                  <div class="notepad-utils-bar">
+                    <div class="formatting-tools">
+                      <button type="button" class="btn-format" id="btnFormatBold" title="Bold"><i class="fa-solid fa-bold"></i></button>
+                      <button type="button" class="btn-format" id="btnFormatItalic" title="Italic"><i class="fa-solid fa-italic"></i></button>
+                      <button type="button" class="btn-format" id="btnFormatHeader" title="Heading"><i class="fa-solid fa-heading"></i></button>
+                      <button type="button" class="btn-format" id="btnFormatList" title="Bullet List"><i class="fa-solid fa-list"></i></button>
+                      <button type="button" class="btn-format" id="btnFormatCode" title="Code Block"><i class="fa-solid fa-code"></i></button>
+                    </div>
+                    <div class="notepad-actions">
+                      <span id="charCountDisplay" class="char-count">0 words | 0 chars</span>
+                      <button type="button" id="btnCopyNote" class="btn-note-action" title="Copy to clipboard">
+                        <i class="fa-solid fa-copy"></i> Copy
+                      </button>
+                      <button type="button" id="btnDownloadNote" class="btn-note-action" title="Download (.md)">
+                        <i class="fa-solid fa-download"></i> Download
+                      </button>
+                      <button type="button" id="btnClearNote" class="btn-note-action btn-note-danger" title="Clear Note">
+                        <i class="fa-solid fa-eraser"></i> Clear
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Notepad Editor Pane (full-width, draw canvas overlaid) -->
+                  <div class="editor-split-panes" id="editorPanes">
+                    <div class="editor-textarea-pane">
+                      <textarea id="markdownTextarea" class="notebook-paper-ruled" placeholder="Start writing your notes here..."></textarea>
+
+                      <!-- Draw Canvas Overlay -->
+                      <canvas id="whiteboardCanvas" class="notebook-paper-grid" width="800" height="440"></canvas>
+
+                      <!-- Floating Drawing Toolbar -->
+                      <div id="floatingDrawingToolbar" class="drawing-toolbar hidden">
+                        <span class="draw-toolbar-label">Pen:</span>
+                        <div class="color-options">
+                          <button type="button" class="color-dot-btn active" data-color="#5c6bc0" style="background:#5c6bc0;"></button>
+                          <button type="button" class="color-dot-btn" data-color="#0f6e56" style="background:#0f6e56;"></button>
+                          <button type="button" class="color-dot-btn" data-color="#e53e3e" style="background:#e53e3e;"></button>
+                          <button type="button" class="color-dot-btn" data-color="#ed8936" style="background:#ed8936;"></button>
+                          <button type="button" class="color-dot-btn" data-color="#1e293b" style="background:#1e293b;"></button>
+                        </div>
+                        <span class="draw-toolbar-sep"></span>
+                        <select id="brushSizeSelect" class="brush-select">
+                          <option value="3">Thin</option>
+                          <option value="6" selected>Medium</option>
+                          <option value="12">Thick</option>
+                        </select>
+                        <button type="button" id="btnToolEraser" class="btn-tool">
+                          <i class="fa-solid fa-eraser"></i> Eraser
+                        </button>
+                        <button type="button" id="btnToolClear" class="btn-tool btn-tool-danger">
+                          <i class="fa-solid fa-trash-can"></i> Clear
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
 
-              <!-- Message bubbles wrapper -->
-              <div class="messages-container" id="chatMessagesBox">
-                
-                <div class="chat-bubble-row other">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&fit=crop&q=80" alt="avatar" class="bubble-avatar" />
-                  <div class="bubble-content-wrapper">
-                    <span class="sender-name">Aarav Sharma</span>
-                    <div class="bubble">
-                      <p>Hey, I added the DFS stack mechanics summary in the shared note. Let me know if that works!</p>
-                    </div>
-                    <span class="bubble-time">10:14 AM</span>
+              <!-- My Saved Notes Directory -->
+              <div class="saved-notes-panel">
+                <div class="saved-notes-header">
+                  <h3 class="saved-notes-title">
+                    <i class="fa-solid fa-folder-open"></i> My Saved Notes
+                  </h3>
+                  <div class="note-search-wrap">
+                    <i class="fa-solid fa-magnifying-glass note-search-icon"></i>
+                    <input type="text" id="noteSearchInput" placeholder="Search notes..." class="note-search-input" />
                   </div>
                 </div>
-
-                <div class="chat-bubble-row other">
-                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&fit=crop&q=80" alt="avatar" class="bubble-avatar" />
-                  <div class="bubble-content-wrapper">
-                    <span class="sender-name">Meera Nair</span>
-                    <div class="bubble">
-                      <p>Looks great Aarav. I will add BFS comparative structures in a new sub-heading shortly.</p>
-                    </div>
-                    <span class="bubble-time">10:28 AM</span>
-                  </div>
+                <div id="notesListDirectoryContainer" class="notes-directory-list">
+                  <!-- Note cards injected here -->
                 </div>
-
-                <div class="chat-bubble-row self">
-                  <div class="bubble-content-wrapper">
-                    <span class="sender-name">Joya Sen (You)</span>
-                    <div class="bubble">
-                      <p>Awesome! Let's complete the Graph Midterm prep notes today.</p>
-                    </div>
-                    <span class="bubble-time">10:35 AM</span>
-                  </div>
-                </div>
-
               </div>
 
-              <!-- Send message input form -->
-              <form class="chat-input-row" id="workspaceChatForm">
-                <input type="text" id="chatMessageInput" placeholder="Type a message to study room..." required autocomplete="off" />
-                <button type="submit" class="btn btn-send"><i class="fa-solid fa-paper-plane"></i> Send</button>
-              </form>
+              <!-- ── AI Voice Recorder → Notes ── -->
+              <div class="ai-recorder-card">
+                <div class="ai-recorder-header">
+                  <span class="ai-recorder-title"><i class="fa-solid fa-microphone-lines"></i> AI Voice → Notes</span>
+                  <span class="ai-recorder-badge">Speech-to-Text</span>
+                </div>
+                <p class="ai-recorder-desc">Record lecture audio — instantly transcribed &amp; saved as a new note tab.</p>
+
+                <!-- Waveform visualiser -->
+                <div class="ai-waveform-wrap">
+                  <div class="ai-waveform" id="wsWaveform">
+                    <span class="ai-bar"></span><span class="ai-bar"></span><span class="ai-bar"></span>
+                    <span class="ai-bar"></span><span class="ai-bar"></span><span class="ai-bar"></span>
+                    <span class="ai-bar"></span><span class="ai-bar"></span>
+                  </div>
+                  <span class="ai-timer" id="wsRecordingTimer">00:00</span>
+                </div>
+
+                <!-- Live transcript preview -->
+                <div class="ai-transcript-preview" id="wsTranscriptPreview">
+                  <i class="fa-solid fa-quote-left" style="opacity:.3;"></i>
+                  <span id="wsLiveTranscript">Press Record and start speaking...</span>
+                </div>
+
+                <!-- Controls -->
+                <div class="ai-recorder-controls">
+                  <button type="button" id="btnWsStartRecord" class="btn-ai-record">
+                    <i class="fa-solid fa-microphone"></i> Record
+                  </button>
+                  <button type="button" id="btnWsStopRecord" class="btn-ai-stop hidden">
+                    <i class="fa-solid fa-stop"></i> Stop &amp; Save Note
+                  </button>
+                </div>
+
+                <!-- Processing state -->
+                <div class="ai-processing hidden" id="wsAiProcessing">
+                  <div class="ai-spinner"></div>
+                  <span id="wsAiStatus">Transcribing audio…</span>
+                </div>
+              </div>
+
             </div>
-
           </div>
-
-          <!-- Right Sidebar Zone: Members list & shared files downloads -->
-          <div class="right-sidebar-zone">
-            
-            <!-- Members list -->
-            <div class="agenda-card glass-panel">
-              <h3><i class="fa-solid fa-users"></i> Room Members (3)</h3>
-              <div class="members-stack">
-                <div class="member-row">
-                  <div class="member-avatar-wrapper">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&fit=crop&q=80" alt="avatar" />
-                    <span class="status-indicator online"></span>
-                  </div>
-                  <div class="member-meta">
-                    <h4>Joya Sen</h4>
-                    <p>Student • Host</p>
-                  </div>
-                </div>
-                <div class="member-row">
-                  <div class="member-avatar-wrapper">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&fit=crop&q=80" alt="avatar" />
-                    <span class="status-indicator online"></span>
-                  </div>
-                  <div class="member-meta">
-                    <h4>Aarav Sharma</h4>
-                    <p>Student</p>
-                  </div>
-                </div>
-                <div class="member-row">
-                  <div class="member-avatar-wrapper">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&fit=crop&q=80" alt="avatar" />
-                    <span class="status-indicator away"></span>
-                  </div>
-                  <div class="member-meta">
-                    <h4>Meera Nair</h4>
-                    <p>Student</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Resource files panel -->
-            <div class="agenda-card glass-panel" style="margin-top: 24px;">
-              <h3><i class="fa-solid fa-file-pdf"></i> Study Resources</h3>
-              
-              <div class="shared-files-stack">
-                <div class="file-row-item">
-                  <div class="file-icon"><i class="fa-solid fa-file-pdf"></i></div>
-                  <div class="file-meta">
-                    <h4>syllabus_ds.pdf</h4>
-                    <p>Added by Aarav • 420 KB</p>
-                  </div>
-                  <button class="download-btn-circle" id="mockFileDownload1" title="Download"><i class="fa-solid fa-download"></i></button>
-                </div>
-                
-                <div class="file-row-item">
-                  <div class="file-icon" style="background: rgba(79, 172, 254, 0.15); color: #4facfe;"><i class="fa-solid fa-file-word"></i></div>
-                  <div class="file-meta">
-                    <h4>midterm_key.docx</h4>
-                    <p>Added by Meera • 1.2 MB</p>
-                  </div>
-                  <button class="download-btn-circle" id="mockFileDownload2" title="Download"><i class="fa-solid fa-download"></i></button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
         </div>
       </main>
     </div>
 
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- Add Member Modal -->
+    <div class="modal-overlay" id="addMemberModal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3><i class="fa-solid fa-user-plus"></i> Add Member to Chatroom</h3>
+          <button class="close-modal-btn" id="closeAddMemberModalBtn">&times;</button>
+        </div>
+        <form id="addMemberForm">
+          <div class="modal-body">
+            <div class="form-group" style="margin-bottom:20px;">
+              <label for="memberSelect" style="display:block;font-size:11px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;margin-bottom:8px;">Choose Contact</label>
+              <select id="memberSelect" required style="width:100%;height:46px;background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:0 16px;color:var(--text-primary);outline:none;font-family:inherit;cursor:pointer;">
+                <option value="Aarav Sharma">Aarav Sharma</option>
+                <option value="Meera Nair">Meera Nair</option>
+                <option value="Dr. Priya">Dr. Priya</option>
+                <option value="Dr. A. K. Ray">Dr. A. K. Ray</option>
+              </select>
+            </div>
+            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6;margin:0;">
+              <i class="fa-solid fa-circle-info" style="color:var(--primary);"></i>
+              Added contacts will receive a system notification in the group chat.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="cancelAddMemberBtn">Cancel</button>
+            <button type="submit" class="btn" style="background:linear-gradient(135deg,var(--primary),var(--primary-soft));border:none;color:white;box-shadow:0 4px 12px var(--primary-glow);display:inline-flex;align-items:center;gap:6px;font-weight:700;">
+              <i class="fa-solid fa-user-plus"></i> Add Member
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Toast Notification -->
     <div class="toast" id="actionToast">
-      <i class="fa-solid fa-circle-check"></i>
-      <span id="toastMsg">File downloaded successfully!</span>
+      <i class="fa-solid fa-circle-check" id="toastIcon"></i>
+      <span id="toastMsg">Action completed!</span>
     </div>
 
     <script src="workspace.js"></script>

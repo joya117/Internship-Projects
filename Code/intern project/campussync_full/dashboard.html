@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="dashboard.css" />
   </head>
   <body class="theme-student">
+    <!-- Animated background scene -->
+    <div class="dashboard-scene" aria-hidden="true">
+      <div class="orb orb--primary"></div>
+      <div class="orb orb--secondary"></div>
+      <div class="orb orb--accent"></div>
+      <div class="grid-overlay"></div>
+      <div class="particles" id="particles"></div>
+    </div>
 
     <div class="dashboard-container">
       <!-- Sidebar -->
@@ -77,10 +85,7 @@
       <main class="main-panel">
         <header class="topbar">
           <div class="topbar-left">
-            <button class="view-toggle-btn" id="roleViewToggle">
-              <i class="fa-solid fa-arrows-rotate"></i>
-              <span>Switch to Professor View</span>
-            </button>
+            <h2 class="page-title" id="dashboardPageTitle"><i class="fa-solid fa-house"></i> Dashboard</h2>
           </div>
           <div class="topbar-right">
             <div class="notification-bell">
@@ -214,6 +219,16 @@
                 </div>
               </div>
             </div>
+            <!-- Sticky Quick Notes -->
+            <div class="section-header" style="margin-top: 28px;">
+              <h2><i class="fa-solid fa-note-sticky" style="color:var(--primary);"></i> Quick Notes</h2>
+              <button class="action-link-btn" id="btnAddStickyNote" style="background:var(--primary);color:#fff;border:none;">
+                <i class="fa-solid fa-plus"></i> Add Note
+              </button>
+            </div>
+            <div class="sticky-notes-board" id="studentStickyBoard">
+              <!-- Sticky notes injected by JS -->
+            </div>
           </div>
 
           <!-- ==================== PROFESSOR VIEW ==================== -->
@@ -309,6 +324,16 @@
                   <a href="queries.html" class="reply-shortcut-btn">Review</a>
                 </div>
               </div>
+            </div>
+            <!-- Sticky Quick Notes (Professor) -->
+            <div class="section-header" style="margin-top: 28px;">
+              <h2><i class="fa-solid fa-note-sticky" style="color:var(--prof-primary, #0f6e56);"></i> Quick Notes</h2>
+              <button class="action-link-btn" id="btnAddStickyNoteProf" style="background:var(--prof-primary,#0f6e56);color:#fff;border:none;">
+                <i class="fa-solid fa-plus"></i> Add Note
+              </button>
+            </div>
+            <div class="sticky-notes-board" id="profStickyBoard">
+              <!-- Sticky notes injected by JS -->
             </div>
           </div>
 

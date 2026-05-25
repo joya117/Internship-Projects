@@ -259,7 +259,7 @@ function initQueriesThreads() {
 
     if (queries.length === 0) {
       threadsContainer.innerHTML = `
-        <div class="empty-threads-placeholder" style="padding: 24px 16px; text-align: center; color: var(--text-secondary); font-size: 0.9rem; border: 1px dashed rgba(255,255,255,0.08); border-radius: 12px; margin: 12px 0; background: rgba(255,255,255,0.01);">
+        <div class="empty-threads-placeholder" style="padding: 24px 16px; text-align: center; color: var(--text-secondary); font-size: 0.9rem; border: 1.5px dashed var(--border); border-radius: 12px; margin: 12px 0; background: #ffffff;">
           <i class="fa-solid fa-folder-open" style="font-size: 1.8rem; margin-bottom: 10px; color: var(--primary); opacity: 0.8; display: block;"></i>
           <span style="font-weight: 500; display: block; margin-bottom: 4px; color: var(--text-primary);">No Queries Logged Yet</span>
           Ask your first question directly in the chatbox!
